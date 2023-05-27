@@ -7,14 +7,14 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/ui/form-input";
 import { FormRadioGroup } from "@/components/ui/form-radio-group";
-import { FormActionInput } from "@/components/ui/form-action-input";
+import { Badge } from "@/components/ui/badge";
 
 const choiceMaxLength = 32;
 const formSchema = z.object({
   title: z.string().min(1).max(32),
   description: z.string().max(32),
   currentChoice: z.string().max(choiceMaxLength),
-  pollChoices: z.array(z.string().min(2).max(choiceMaxLength)).max(15),
+  pollChoices: z.set(z.string().min(2).max(choiceMaxLength)).max(15),
   voteType: z.enum(["single", "ranked"]),
 });
 
@@ -25,7 +25,7 @@ export default function CreatePoll() {
       title: "",
       description: "",
       currentChoice: "",
-      pollChoices: [],
+      pollChoices: new Set<string>(),
       voteType: "ranked",
     },
   });
@@ -42,17 +42,23 @@ export default function CreatePoll() {
     const itemsToAdd: string[] = currentChoice
       .split(",")
       .map((item) => item.trim());
-    const itemsToAddFiltered = itemsToAdd.filter((item) => {
-      if (item.length === 0) return false;
-      if (item.length > choiceMaxLength) return false;
-      if (pollChoices.includes(item)) return false;
+    itemsToAdd.forEach((item) => {
+      if (item.length === 0) return;
+      // TODO: show error message
+      if (item.length > choiceMaxLength) return;
+      if (pollChoices.has(item)) return;
 
-      pollChoices.push(item);
-      return true;
+      pollChoices.add(item);
     });
 
-    form.setValue("pollChoices", pollChoices);
+    form.setValue("pollChoices", new Set(pollChoices));
     form.setValue("currentChoice", "");
+  }
+
+  function handleRemoveChoice(choice: string) {
+    const pollChoices = form.getValues("pollChoices");
+    pollChoices.delete(choice);
+    form.setValue("pollChoices", new Set(pollChoices));
   }
 
   return (
@@ -67,6 +73,7 @@ export default function CreatePoll() {
             label="Poll Title"
             placeholder="First day of the week"
             helpText="Title of the poll"
+            isRequired={true}
           />
           <FormInput
             control={form.control}
@@ -75,19 +82,35 @@ export default function CreatePoll() {
             placeholder="Does the week start on Monday or Sunday"
             helpText="Description/Subtitle for more context"
           />
-          <FormActionInput
+          <FormInput
             control={form.control}
-            name="pollChoices"
-            inputName="currentChoice"
+            name="currentChoice"
             label="Poll Choices"
             placeholder="Monday, Sunday"
             helpText="Choices to vote on"
-            onActionClick={handleChoiceAdd}
+            rightAddOn={
+              <Button
+                className="rounded-l-none"
+                type="button"
+                onClick={handleChoiceAdd}
+              >
+                Add Choice
+              </Button>
+            }
+            isRequired={true}
           />
+          <div className="flex flex-wrap gap-0.5">
+            {Array.from(form.getValues("pollChoices")).map((choice) => (
+              <Badge key={choice} onClick={() => handleRemoveChoice(choice)}>
+                {choice}
+              </Badge>
+            ))}
+          </div>
           <FormRadioGroup
             control={form.control}
             name="voteType"
             label="Vote Type"
+            isRequired={true}
             options={[
               { value: "ranked", label: "Ranked Vote" },
               { value: "single", label: "Single Vote" },

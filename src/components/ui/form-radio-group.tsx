@@ -18,17 +18,19 @@ type FormRadioGroupProps = {
   name: string;
   label: string;
   options: Option[];
+  isRequired?: boolean;
 };
 
 export function FormRadioGroup(props: FormRadioGroupProps) {
-  const { name, label, options, control } = props;
+  const { name, label, options, control, isRequired = false } = props;
+  const labelClass = isRequired ? "required-field" : "";
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
         <FormItem className="space-y-3">
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className={labelClass}>{label}</FormLabel>
           <FormControl>
             <RadioGroup
               onValueChange={field.onChange}
