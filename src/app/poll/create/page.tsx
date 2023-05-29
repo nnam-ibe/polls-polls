@@ -93,6 +93,7 @@ export default function CreatePoll() {
                 className="rounded-l-none"
                 type="button"
                 onClick={handleChoiceAdd}
+                variant="secondary"
               >
                 Add Choice
               </Button>
@@ -117,7 +118,7 @@ export default function CreatePoll() {
             ]}
           />
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" variant="secondary">
             Create Poll
           </Button>
         </form>

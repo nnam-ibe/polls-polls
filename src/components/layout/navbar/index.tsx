@@ -17,7 +17,7 @@ export function Navbar() {
         </SignedIn>
 
         <SignedOut>
-          <p>how far</p>
+          <p>Signed out</p>
         </SignedOut>
       </div>
     </nav>

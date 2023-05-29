@@ -1,13 +1,12 @@
-import Image from "next/image";
-import { UserButton, SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="m-2">
       <div className="flex justify-center">
-        <Button size="lg" variant="outline">
-          New Poll
+        <Button asChild>
+          <Link href="/poll/create">Create Poll</Link>
         </Button>
       </div>
     </div>

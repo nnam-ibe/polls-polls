@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PollType {
+  single
+  ranked
+}
+
+model Poll {
+  id          String       @id @default(uuid())
+  title       String
+  description String
+  voteType    PollType
+  isPrivate   Boolean      @default(false)
+  isActive    Boolean      @default(true)
+  isClosed    Boolean      @default(false)
+  createdBy   String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  SingleVote  SingleVote[]
+  PollChoice  PollChoice[]
+  RankedVote  RankedVote[]
+}
+
+model PollChoice {
+  id         String       @id @default(uuid())
+  poll       Poll         @relation(fields: [pollId], references: [id])
+  pollId     String
+  title      String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  SingleVote SingleVote[]
+  RankedVote RankedVote[]
+}
+
+model SingleVote {
+  id           String     @id @default(uuid())
+  poll         Poll       @relation(fields: [pollId], references: [id])
+  pollId       String
+  pollChoice   PollChoice @relation(fields: [pollChoiceId], references: [id])
+  pollChoiceId String
+  voterId      String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model RankedVote {
+  id           String     @id @default(uuid())
+  poll         Poll       @relation(fields: [pollId], references: [id])
+  pollId       String
+  pollChoice   PollChoice @relation(fields: [pollChoiceId], references: [id])
+  pollChoiceId String
+  rank         Int
+  voterId      String?
+  VoteId       String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
