@@ -1,10 +1,7 @@
 import { PollWChoices } from "@/lib/types";
 import * as z from "zod";
 import { useFormContext } from "react-hook-form";
-import {
-  StyledFormRadioGroup,
-  FormRadioGroup,
-} from "@/components/ui/form-radio-group";
+import { StyledFormRadioGroup } from "@/components/ui/form-radio-group";
 
 type SingleVoteProps = {
   poll: PollWChoices;
@@ -17,6 +14,16 @@ export const singleVoteFormSchema = z.object({
 export const singleFormDefaultValues = {
   vote: "",
 };
+
+export function getFormDefaultsAndSchema() {
+  const singleVoteFormSchema = z.object({
+    vote: z.string().min(1),
+  });
+
+  const defaultValues = { vote: "" };
+
+  return { schema: singleVoteFormSchema, defaultValues };
+}
 
 export function SingleVote(props: SingleVoteProps) {
   const { poll } = props;

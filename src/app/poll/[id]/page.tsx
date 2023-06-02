@@ -6,9 +6,12 @@ import { Form } from "@/components/ui/form";
 import { Center } from "@/components/layout/center";
 import {
   SingleVote,
-  singleVoteFormSchema,
-  singleFormDefaultValues,
+  getFormDefaultsAndSchema as singleGetFormDefaultsAndSchema,
 } from "@/components/layout/vote/single-vote";
+import {
+  RankedVote,
+  getFormDefaultsAndSchema as rankedGetFormDefaultsAndSchema,
+} from "@/components/layout/vote/ranked-vote";
 import { PollWChoices } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 
@@ -20,11 +23,16 @@ function fetchPoll(id: string) {
   });
 }
 
-const formSchema = singleVoteFormSchema;
-const defaultValues = singleFormDefaultValues;
-
 function PollComponent(props: { poll: PollWChoices }) {
   const { poll } = props;
+
+  const defaultsAndSchema =
+    poll.voteType === "single"
+      ? singleGetFormDefaultsAndSchema()
+      : rankedGetFormDefaultsAndSchema(poll);
+  const formSchema = defaultsAndSchema.schema;
+  const defaultValues = defaultsAndSchema.defaultValues;
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -35,13 +43,15 @@ function PollComponent(props: { poll: PollWChoices }) {
     console.log(values);
   }
 
+  const VoteComponent = poll.voteType === "single" ? SingleVote : RankedVote;
+
   return (
     <Center>
       <div className="text-xl font-bold mb-1">{poll.title}</div>
       <div className="text-base italic mb-1">{poll.description}</div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <SingleVote poll={poll} />
+          <VoteComponent poll={poll} />
           <div className="mt-7">
             <Button type="submit" className="w-full" variant="secondary">
               Submit Vote!
@@ -54,11 +64,6 @@ function PollComponent(props: { poll: PollWChoices }) {
 }
 
 export default async function PollPage({ params }: { params: { id: string } }) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues,
-  });
-
   const response = await fetchPoll(params.id);
   const poll = (await response.json()) as PollWChoices;
 
