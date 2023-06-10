@@ -1,23 +1,48 @@
-import { PollWChoices } from "@/lib/types";
-import * as z from "zod";
-import { useFormContext } from "react-hook-form";
-import { FormSelect } from "@/components/ui/form-select";
-import { toOrdinalNumber } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { FormSelect } from "@/components/ui/form-select";
+import { PollWChoices } from "@/lib/types";
+import { toOrdinalNumber } from "@/lib/utils";
+import { useFormContext } from "react-hook-form";
+import * as z from "zod";
 
 type RankedVoteProps = {
   poll: PollWChoices;
 };
 
-export const rankedVoteFormSchema = z.object({
-  vote: z.map(z.string(), z.string()),
-});
+function validator(
+  values: Record<string, string | null>,
+  options: PollWChoices["PollChoice"]
+) {
+  const chosenOptions = new Map<string, string>();
+  const duplicatedFields = new Set<string>();
+  const errors: Record<string, string> = {};
+  let lastOptionWithValue = options.length;
 
-export const rankedFormDefaultValues = {
-  vote: "",
-};
+  Array.from({ length: options.length }, (_, index) => {
+    const indexString = index.toString();
+    const optionValue = values[indexString];
+    if (!optionValue) {
+      lastOptionWithValue = index;
+      return;
+    }
 
-export function getFormDefaultsAndSchema(poll: PollWChoices) {
+    if (index > lastOptionWithValue) {
+      errors[lastOptionWithValue] = "Cannot skip a rank";
+      return;
+    }
+
+    if (chosenOptions.has(optionValue)) {
+      errors[indexString] = "Ranked more than once";
+      errors[chosenOptions.get(optionValue)!] = "Ranked more than once";
+    }
+
+    chosenOptions.set(optionValue, indexString);
+  });
+
+  return errors;
+}
+
+export function formConfig(poll: PollWChoices) {
   const defaultValues: Record<string, string | null> = {};
   const zSchema: Record<string, z.ZodType<string | null>> = {};
 
@@ -26,18 +51,20 @@ export function getFormDefaultsAndSchema(poll: PollWChoices) {
   optionIds.forEach((_, index) => {
     defaultValues[index] = "";
 
-    zSchema[index] = index === 0 ? z.string().min(1) : z.string().nullable();
+    zSchema[index] =
+      index === 0
+        ? z.string().min(1, { message: "1st choice required" })
+        : z.string().nullable();
   });
 
   const schema = z.object(zSchema);
 
-  return { schema, defaultValues };
+  return { schema, defaultValues, validator };
 }
 
 export function RankedVote(props: RankedVoteProps) {
   const { poll } = props;
   const form = useFormContext();
-  const watchVote = form.watch("vote");
 
   const options = poll.PollChoice.map((choice) => ({
     value: choice.id,

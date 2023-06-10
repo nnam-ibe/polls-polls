@@ -1,5 +1,5 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { Center } from "@/components/layout/center";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (

@@ -1,19 +1,19 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { useForm } from "react-hook-form";
-import { Form } from "@/components/ui/form";
 import { Center } from "@/components/layout/center";
 import {
-  SingleVote,
-  getFormDefaultsAndSchema as singleGetFormDefaultsAndSchema,
-} from "@/components/layout/vote/single-vote";
-import {
   RankedVote,
-  getFormDefaultsAndSchema as rankedGetFormDefaultsAndSchema,
+  formConfig as rankedFormConfig,
 } from "@/components/layout/vote/ranked-vote";
-import { PollWChoices } from "@/lib/types";
+import {
+  SingleVote,
+  formConfig as singleFormConfig,
+} from "@/components/layout/vote/single-vote";
 import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { PollWChoices } from "@/lib/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -26,21 +26,43 @@ function fetchPoll(id: string) {
 function PollComponent(props: { poll: PollWChoices }) {
   const { poll } = props;
 
-  const defaultsAndSchema =
-    poll.voteType === "single"
-      ? singleGetFormDefaultsAndSchema()
-      : rankedGetFormDefaultsAndSchema(poll);
-  const formSchema = defaultsAndSchema.schema;
-  const defaultValues = defaultsAndSchema.defaultValues;
+  const formConfig =
+    poll.voteType === "single" ? singleFormConfig() : rankedFormConfig(poll);
+  const formSchema = formConfig.schema;
+  const defaultValues = formConfig.defaultValues;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
+  // next server action to submit vote
+  // async function submit(params: any) {
+  //   "use server";
+  //   const { id } = params;
+  //   const response = await fetch(`${baseUrl}/api/poll/${id}`, {
+  //     method: "POST",
+  //     body: JSON.stringify(params),
+  //   });
+  // }
+
   function onSubmit(values: z.infer<typeof formSchema>) {
+    const invalidRecord: Record<string, string> = formConfig.validator(
+      values as any,
+      poll.PollChoice
+    );
+    const invalidFields = Object.keys(invalidRecord);
+    if (invalidFields.length > 0) {
+      console.log("REMOVEREMOVE", invalidFields);
+      invalidFields.forEach((field) => {
+        form.setError(field, {
+          type: "custom",
+          message: invalidRecord[field],
+        });
+      });
+      return;
+    }
     // Ensure the form is valid before submitting
-    console.log(values);
   }
 
   const VoteComponent = poll.voteType === "single" ? SingleVote : RankedVote;

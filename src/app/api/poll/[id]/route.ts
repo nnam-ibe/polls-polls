@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { GetFunc } from "@/lib/types";
 
-export async function GET(request: Request, context) {
+export const GET: GetFunc<{ id: string }> = async (request, context) => {
   try {
     const pollId = context.params.id;
 
@@ -14,4 +15,4 @@ export async function GET(request: Request, context) {
   } catch (error) {
     return new Response("Invalid request", { status: 400 });
   }
-}
+};

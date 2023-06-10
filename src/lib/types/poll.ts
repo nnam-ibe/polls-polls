@@ -23,7 +23,7 @@ export const PollSchema = z.object({
 
 export const APIPollSchema = PollSchema.extend({
   id: z.string().optional(),
-  description: z.string().max(32).default(""),
+  description: z.string().max(64).default(""),
   isPrivate: z.boolean().default(false),
   isActive: z.boolean().default(true),
   isClosed: z.boolean().default(false),
@@ -32,6 +32,11 @@ export const APIPollSchema = PollSchema.extend({
 
 export const PollWChoicesSchema = PollSchema.extend({
   PollChoice: z.array(PollChoiceSchema),
+});
+
+export const CreatePollResultSchema = z.object({
+  message: z.string(),
+  id: z.string(),
 });
 
 export type Poll = z.infer<typeof PollSchema>;

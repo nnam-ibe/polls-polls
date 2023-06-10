@@ -1,4 +1,3 @@
-import { Control } from "react-hook-form";
 import {
   FormControl,
   FormField,
@@ -8,9 +7,10 @@ import {
 } from "@/components/ui/form";
 import {
   RadioGroup,
-  RadioGroupItem,
   RadioGroupCard,
+  RadioGroupItem,
 } from "@/components/ui/radio-group";
+import { Control } from "react-hook-form";
 
 type Option = {
   value: string;

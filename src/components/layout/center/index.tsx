@@ -8,7 +8,7 @@ export function Center(props: CenterProps) {
 
   return (
     <div
-      className={`flex flex-col justify-center padding 1rem max-w-screen-md ml-auto mr-auto min-h-[--content-height] ${className}`}
+      className={`flex flex-col justify-center p-4 max-w-screen-md ml-auto mr-auto min-h-[--content-height] ${className}`}
     >
       {children}
     </div>
