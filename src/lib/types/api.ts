@@ -4,7 +4,7 @@ type Context<T> = {
   params: T;
 };
 
-export type GetFunc<T> = (
+export type RequestHandler<T> = (
   request: Request,
   context: Context<T>
 ) => Promise<Response>;

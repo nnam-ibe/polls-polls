@@ -1,8 +1,7 @@
-import { NextResponse } from "next/server";
+import { getError } from "@/lib/error-handler";
 import prisma from "@/lib/prisma";
-import * as z from "zod";
-import { fromZodError } from "zod-validation-error";
-import { APIPollSchema, APIPollChoiceSchema } from "@/lib/types";
+import { APIPollChoiceSchema, APIPollSchema } from "@/lib/types";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
@@ -20,17 +19,11 @@ export async function POST(request: Request) {
     await prisma.pollChoice.createMany({ data: choices });
 
     return NextResponse.json({ message: "Poll Created", id: poll.id });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      const validationError = fromZodError(error);
-      return new Response(JSON.stringify({ errors: validationError }), {
-        status: 422,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    }
-
-    return new Response("Invalid request", { status: 400 });
+  } catch (err) {
+    const error = getError(err);
+    return NextResponse.json(
+      { message: error.message },
+      { status: error.status }
+    );
   }
 }

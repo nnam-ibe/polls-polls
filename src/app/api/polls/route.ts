@@ -1,3 +1,4 @@
+import { getError } from "@/lib/error-handler";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -9,7 +10,11 @@ export async function GET(request: Request) {
       },
     });
     return NextResponse.json(polls);
-  } catch (error) {
-    return new Response("Invalid request", { status: 400 });
+  } catch (err) {
+    const error = getError(err);
+    return NextResponse.json(
+      { message: error.message },
+      { status: error.status }
+    );
   }
 }

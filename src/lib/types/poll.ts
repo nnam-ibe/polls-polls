@@ -39,9 +39,18 @@ export const CreatePollResultSchema = z.object({
   id: z.string(),
 });
 
+export const SingleVoteSchema = z.object({
+  id: z.string().optional(),
+  pollId: z.string(),
+  choiceId: z.string(),
+  userId: z.string().optional(),
+});
+
 export type Poll = z.infer<typeof PollSchema>;
 export type PollWChoices = z.infer<typeof PollWChoicesSchema>;
 export type APIPoll = z.infer<typeof APIPollSchema>;
 
 export type PollChoice = z.infer<typeof PollChoiceSchema>;
 export type APIPollChoice = z.infer<typeof APIPollChoiceSchema>;
+
+export type SingleVote = z.infer<typeof SingleVoteSchema>;

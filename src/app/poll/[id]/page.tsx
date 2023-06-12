@@ -10,18 +10,55 @@ import {
 } from "@/components/layout/vote/single-vote";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { PollWChoices } from "@/lib/types";
+import { useToast } from "@/components/ui/use-toast";
+import { ApiErrorSchema, PollWChoices } from "@/lib/types";
+import { useClerk } from "@clerk/clerk-react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useReducer } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-function fetchPoll(id: string) {
-  return fetch(`${baseUrl}/api/poll/${id}`, {
-    next: { revalidate: 60 },
-  });
-}
+type State = {
+  isLoading: boolean;
+};
+
+type Action =
+  | { type: "submitVote" }
+  | {
+      type: "submitVoteSuccess";
+      toast: ReturnType<typeof useToast>["toast"];
+    }
+  | {
+      type: "submitVoteError";
+      toast: ReturnType<typeof useToast>["toast"];
+      message: string;
+    };
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "submitVote":
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case "submitVoteSuccess":
+      action.toast({ title: "Vote submitted successfully" });
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case "submitVoteError":
+      action.toast({ title: action.message, variant: "destructive" });
+      return {
+        ...state,
+        isLoading: false,
+      };
+    default:
+      throw new Error("Invalid action type");
+  }
+};
 
 function PollComponent(props: { poll: PollWChoices }) {
   const { poll } = props;
@@ -35,25 +72,37 @@ function PollComponent(props: { poll: PollWChoices }) {
     resolver: zodResolver(formSchema),
     defaultValues,
   });
+  const [state, dispatch] = useReducer(reducer, { isLoading: false });
+  const { toast } = useToast();
+  const { user } = useClerk();
 
-  // next server action to submit vote
-  // async function submit(params: any) {
-  //   "use server";
-  //   const { id } = params;
-  //   const response = await fetch(`${baseUrl}/api/poll/${id}`, {
-  //     method: "POST",
-  //     body: JSON.stringify(params),
-  //   });
-  // }
+  async function submitVote(data: any) {
+    try {
+      dispatch({ type: "submitVote" });
+      const { id } = data;
+      const response = await fetch(`${baseUrl}/api/poll/${id}`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      const resData = await response.json();
+      if (!response.ok) {
+        throw new Error(resData.message);
+      }
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+      dispatch({ type: "submitVoteSuccess", toast });
+    } catch (error) {
+      const { message } = ApiErrorSchema.parse(error);
+      dispatch({ type: "submitVoteError", toast, message });
+    }
+  }
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     const invalidRecord: Record<string, string> = formConfig.validator(
       values as any,
       poll.PollChoice
     );
     const invalidFields = Object.keys(invalidRecord);
     if (invalidFields.length > 0) {
-      console.log("REMOVEREMOVE", invalidFields);
       invalidFields.forEach((field) => {
         form.setError(field, {
           type: "custom",
@@ -62,7 +111,8 @@ function PollComponent(props: { poll: PollWChoices }) {
       });
       return;
     }
-    // Ensure the form is valid before submitting
+
+    await submitVote(values);
   }
 
   const VoteComponent = poll.voteType === "single" ? SingleVote : RankedVote;
@@ -75,7 +125,12 @@ function PollComponent(props: { poll: PollWChoices }) {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <VoteComponent poll={poll} />
           <div className="mt-7">
-            <Button type="submit" className="w-full" variant="secondary">
+            <Button
+              type="submit"
+              className="w-full"
+              variant="secondary"
+              loading={state.isLoading}
+            >
               Submit Vote!
             </Button>
           </div>
@@ -83,6 +138,12 @@ function PollComponent(props: { poll: PollWChoices }) {
       </Form>
     </Center>
   );
+}
+
+function fetchPoll(id: string) {
+  return fetch(`${baseUrl}/api/poll/${id}`, {
+    next: { revalidate: 60 },
+  });
 }
 
 export default async function PollPage({ params }: { params: { id: string } }) {

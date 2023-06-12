@@ -64,7 +64,7 @@ const createPollReducer = (
         isLoading: false,
       };
     default:
-      return state;
+      throw new Error("Invalid action type");
   }
 };
 
