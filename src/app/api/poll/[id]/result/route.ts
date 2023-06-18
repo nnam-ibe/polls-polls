@@ -1,8 +1,8 @@
 import { AppError, getError } from "@/lib/error-handler";
 import prisma from "@/lib/prisma";
-import { RequestHandler, SingleVoteSchema } from "@/lib/types";
+import { RequestHandler } from "@/lib/types";
 import { NextResponse } from "next/server";
-import { rankedResult, singleResult } from "./collate-votes";
+import { calculateRankedResult, calculateSingleResult } from "./collate-votes";
 
 let GET: RequestHandler<{ id: string }>;
 GET = async (request, context) => {
@@ -17,9 +17,11 @@ GET = async (request, context) => {
     }
 
     const result =
-      poll.voteType === "ranked" ? rankedResult(poll) : singleResult(poll);
+      poll.voteType === "ranked"
+        ? calculateRankedResult(poll)
+        : calculateSingleResult(poll);
 
-    return NextResponse.json(result);
+    return NextResponse.json({ result, poll });
   } catch (err) {
     const error = getError(err);
     return NextResponse.json(

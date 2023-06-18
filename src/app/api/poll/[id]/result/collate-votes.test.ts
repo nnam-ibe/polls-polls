@@ -2,10 +2,10 @@ import rVoteFixture from "@/lib/fixtures/ranked-votes.json";
 import { faker } from "@/lib/test-helper";
 import type { PollwRVotes } from "./collate-votes";
 import {
+  calculateRankedResult,
+  calculateSingleResult,
   compileStage,
   groupVotesByVoteId,
-  rankedResult,
-  singleResult,
 } from "./collate-votes";
 
 type WithDate = {
@@ -37,7 +37,7 @@ function parsePollRankedFixture(
 describe("poll/[id]/result/collate-votes", () => {
   describe("singleResult", () => {
     it("should calculate poll winner and tally", () => {
-      const poll = faker.poll();
+      const poll = faker.poll({ voteType: "single" });
       const pollChoices = [
         faker.pollChoice({ pollId: poll.id, title: "Yes" }),
         faker.pollChoice({ pollId: poll.id, title: "No" }),
@@ -60,7 +60,7 @@ describe("poll/[id]/result/collate-votes", () => {
         ),
       ];
 
-      const result = singleResult({
+      const result = calculateSingleResult({
         ...poll,
         PollChoice: pollChoices,
         SingleVote: votes,
@@ -75,11 +75,12 @@ describe("poll/[id]/result/collate-votes", () => {
         winner: pollChoices[0].id,
         numberOfVotes: 5,
         threshold: 3,
+        voteType: "single",
       });
     });
 
     it("winner should be null when 50+1 is not met", () => {
-      const poll = faker.poll();
+      const poll = faker.poll({ voteType: "single" });
       const pollChoices = [
         faker.pollChoice({ pollId: poll.id, title: "Yes" }),
         faker.pollChoice({ pollId: poll.id, title: "No" }),
@@ -106,7 +107,7 @@ describe("poll/[id]/result/collate-votes", () => {
         }),
       ];
 
-      const result = singleResult({
+      const result = calculateSingleResult({
         ...poll,
         PollChoice: pollChoices,
         SingleVote: votes,
@@ -121,6 +122,7 @@ describe("poll/[id]/result/collate-votes", () => {
         winner: null,
         numberOfVotes: 6,
         threshold: 4,
+        voteType: "single",
       });
     });
   });
@@ -174,11 +176,13 @@ describe("poll/[id]/result/collate-votes", () => {
       const poll = parsePollRankedFixture(rVoteFixture.singleVoteTally);
 
       const pollChoices = poll.PollChoice;
-      const { stages, winner, numberOfVotes, threshold } = rankedResult(poll);
+      const { stages, winner, numberOfVotes, threshold, voteType } =
+        calculateRankedResult(poll);
 
       expect(numberOfVotes).toEqual(4);
       expect(threshold).toEqual(3);
       expect(winner).toEqual(pollChoices[0].id);
+      expect(voteType).toEqual("ranked");
       expect(stages).toHaveLength(1);
       expect(stages[0]).toEqual({
         highestChoiceId: pollChoices[0].id,
@@ -196,11 +200,13 @@ describe("poll/[id]/result/collate-votes", () => {
 
     it("should correctly collate multi-stage results", () => {
       const poll = parsePollRankedFixture(rVoteFixture.multiStageResult);
-      const { stages, winner, numberOfVotes, threshold } = rankedResult(poll);
+      const { stages, winner, numberOfVotes, threshold, voteType } =
+        calculateRankedResult(poll);
 
       expect(numberOfVotes).toEqual(9);
       expect(threshold).toEqual(5);
       expect(winner).toEqual("Choice I");
+      expect(voteType).toEqual("ranked");
       expect(stages).toHaveLength(3);
 
       expect(stages[0]).toEqual({
@@ -246,11 +252,13 @@ describe("poll/[id]/result/collate-votes", () => {
 
     it("should terminates there can be no winner", () => {
       const poll = parsePollRankedFixture(rVoteFixture.noWinner);
-      const { stages, winner, numberOfVotes, threshold } = rankedResult(poll);
+      const { stages, winner, numberOfVotes, threshold, voteType } =
+        calculateRankedResult(poll);
 
       expect(numberOfVotes).toEqual(9);
       expect(threshold).toEqual(5);
       expect(winner).toEqual(null);
+      expect(voteType).toEqual("ranked");
       expect(stages).toHaveLength(2);
 
       expect(stages[0]).toEqual({

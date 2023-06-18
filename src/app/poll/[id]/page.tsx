@@ -14,6 +14,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { ApiErrorSchema, PollWChoices } from "@/lib/types";
 import { useClerk } from "@clerk/clerk-react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { MoveRight } from "lucide-react";
+import Link from "next/link";
 import { useReducer } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -28,12 +30,9 @@ type Action =
   | { type: "submitVote" }
   | {
       type: "submitVoteSuccess";
-      toast: ReturnType<typeof useToast>["toast"];
     }
   | {
       type: "submitVoteError";
-      toast: ReturnType<typeof useToast>["toast"];
-      message: string;
     };
 
 const reducer = (state: State, action: Action): State => {
@@ -44,13 +43,11 @@ const reducer = (state: State, action: Action): State => {
         isLoading: true,
       };
     case "submitVoteSuccess":
-      action.toast({ title: "Vote submitted successfully" });
       return {
         ...state,
         isLoading: false,
       };
     case "submitVoteError":
-      action.toast({ title: action.message, variant: "destructive" });
       return {
         ...state,
         isLoading: false,
@@ -76,11 +73,10 @@ function PollComponent(props: { poll: PollWChoices }) {
   const { toast } = useToast();
   const { user } = useClerk();
 
-  async function submitVote(data: any) {
+  async function submitVote(data: unknown) {
     try {
       dispatch({ type: "submitVote" });
-      const { id } = data;
-      const response = await fetch(`${baseUrl}/api/poll/${id}`, {
+      const response = await fetch(`${baseUrl}/api/poll/${poll.id}/vote`, {
         method: "POST",
         body: JSON.stringify(data),
       });
@@ -89,10 +85,12 @@ function PollComponent(props: { poll: PollWChoices }) {
         throw new Error(resData.message);
       }
 
-      dispatch({ type: "submitVoteSuccess", toast });
+      dispatch({ type: "submitVoteSuccess" });
+      toast({ title: "Vote submitted successfully" });
     } catch (error) {
       const { message } = ApiErrorSchema.parse(error);
-      dispatch({ type: "submitVoteError", toast, message });
+      dispatch({ type: "submitVoteError" });
+      toast({ title: message, variant: "destructive" });
     }
   }
 
@@ -112,7 +110,7 @@ function PollComponent(props: { poll: PollWChoices }) {
       return;
     }
 
-    await submitVote(values);
+    await submitVote({ ...values, pollId: poll.id, userId: user?.id });
   }
 
   const VoteComponent = poll.voteType === "single" ? SingleVote : RankedVote;
@@ -136,6 +134,13 @@ function PollComponent(props: { poll: PollWChoices }) {
           </div>
         </form>
       </Form>
+      <Link
+        href={`/poll/${poll.id}/result`}
+        className="flex items-center text-blue-500 mt-4 justify-end"
+      >
+        <span className="mr-2">View Results</span>
+        <MoveRight className="inline" />
+      </Link>
     </Center>
   );
 }

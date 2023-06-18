@@ -13,10 +13,10 @@ function validator(values: string, options: PollWChoices["PollChoice"]) {
 
 export function formConfig() {
   const singleVoteFormSchema = z.object({
-    vote: z.string().min(1),
+    choiceId: z.string().min(1),
   });
 
-  const defaultValues = { vote: "" };
+  const defaultValues = { choiceId: "" };
 
   return { schema: singleVoteFormSchema, defaultValues, validator };
 }
@@ -24,7 +24,7 @@ export function formConfig() {
 export function SingleVote(props: SingleVoteProps) {
   const { poll } = props;
   const form = useFormContext();
-  const watchVote = form.watch("vote");
+  const watchVote = form.watch("choiceId");
 
   const options = poll.PollChoice.map((choice) => ({
     value: choice.id,
@@ -34,7 +34,7 @@ export function SingleVote(props: SingleVoteProps) {
   return (
     <StyledFormRadioGroup
       control={form.control}
-      name="vote"
+      name="choiceId"
       label=""
       options={options}
       value={watchVote}

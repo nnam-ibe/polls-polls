@@ -1,11 +1,15 @@
-import { Poll, PollChoice, SingleVote, RankedVote } from "@prisma/client";
+import { Poll, PollChoice, RankedVote, SingleVote } from "@prisma/client";
 
 type PollwSVotes = Poll & {
   PollChoice: PollChoice[];
   SingleVote: SingleVote[];
 };
 
-export function singleResult(poll: PollwSVotes) {
+export function calculateSingleResult(poll: PollwSVotes) {
+  if (poll.voteType !== "single") {
+    throw new Error("single vote type expected");
+  }
+
   const tallyCount: Record<string, number> = {};
   poll.PollChoice.forEach((choice) => {
     tallyCount[choice.id] = 0;
@@ -38,6 +42,7 @@ export function singleResult(poll: PollwSVotes) {
     winner,
     threshold,
     numberOfVotes: poll.SingleVote.length,
+    voteType: poll.voteType,
   };
 }
 
@@ -136,7 +141,10 @@ type Stage = ReturnType<typeof compileStage> & {
   eliminatedChoiceIds: string[];
 };
 
-export function rankedResult(poll: PollwRVotes) {
+export function calculateRankedResult(poll: PollwRVotes) {
+  if (poll.voteType !== "ranked") {
+    throw new Error("ranked vote type expected");
+  }
   const { voteIds, votesById } = groupVotesByVoteId(poll.RankedVote);
 
   const threshold = Math.floor(voteIds.size / 2) + 1;
@@ -181,5 +189,6 @@ export function rankedResult(poll: PollwRVotes) {
     stages,
     numberOfVotes: voteIds.size,
     threshold,
+    voteType: poll.voteType,
   };
 }
