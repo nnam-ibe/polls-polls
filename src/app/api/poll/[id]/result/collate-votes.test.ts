@@ -73,6 +73,8 @@ describe("poll/[id]/result/collate-votes", () => {
           [pollChoices[2].id]: 0,
         },
         winner: pollChoices[0].id,
+        numberOfVotes: 5,
+        threshold: 3,
       });
     });
 
@@ -117,6 +119,8 @@ describe("poll/[id]/result/collate-votes", () => {
           [pollChoices[2].id]: 1,
         },
         winner: null,
+        numberOfVotes: 6,
+        threshold: 4,
       });
     });
   });

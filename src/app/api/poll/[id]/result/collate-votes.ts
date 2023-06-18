@@ -28,14 +28,16 @@ export function singleResult(poll: PollwSVotes) {
     }
   });
 
-  const cutoff = Math.floor(poll.SingleVote.length / 2) + 1;
-  if (highestChoiceCount >= cutoff) {
+  const threshold = Math.floor(poll.SingleVote.length / 2) + 1;
+  if (highestChoiceCount >= threshold) {
     winner = highestChoiceId;
   }
 
   return {
     tally: tallyCount,
     winner,
+    threshold,
+    numberOfVotes: poll.SingleVote.length,
   };
 }
 
