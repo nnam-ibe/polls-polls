@@ -1,0 +1,1086 @@
+{
+  "groupById": [
+    {
+      "id": "fec404a3-2bb2-41b2-9457-e0f05cb26868",
+      "pollId": "63c9cbd1-fe86-4316-8712-c0d5771bfbb3",
+      "pollChoiceId": "Yes",
+      "voterId": "ac08b783-0d35-4357-bc6c-10bf90c94111",
+      "VoteId": "red",
+      "rank": 1,
+      "createdAt": "2023-06-01T06:18:25.311Z",
+      "updatedAt": "2022-07-03T23:51:17.658Z"
+    },
+    {
+      "id": "566ecbe4-104e-4aed-8378-a74212f239d2",
+      "pollId": "63c9cbd1-fe86-4316-8712-c0d5771bfbb3",
+      "pollChoiceId": "No",
+      "voterId": "06e4bae4-61c7-4f2a-877a-759d4bfa39aa",
+      "VoteId": "red",
+      "rank": 2,
+      "createdAt": "2022-06-21T17:09:38.988Z",
+      "updatedAt": "2022-10-04T16:17:45.159Z"
+    },
+    {
+      "id": "9661db96-6868-4096-8f6b-d0c8a1889608",
+      "pollId": "63c9cbd1-fe86-4316-8712-c0d5771bfbb3",
+      "pollChoiceId": "Maybe",
+      "voterId": "af8fceed-afb2-4fee-a065-18d914dc5848",
+      "VoteId": "red",
+      "rank": 3,
+      "createdAt": "2022-10-28T00:39:17.147Z",
+      "updatedAt": "2023-04-13T11:49:41.926Z"
+    },
+    {
+      "id": "5e84651a-ca59-4c14-b9a0-50b0ee935ffb",
+      "pollId": "63c9cbd1-fe86-4316-8712-c0d5771bfbb3",
+      "pollChoiceId": "Maybe",
+      "voterId": "f28bc9bf-433f-4470-9627-9954155030e0",
+      "VoteId": "blue",
+      "rank": 1,
+      "createdAt": "2022-10-17T10:48:52.200Z",
+      "updatedAt": "2022-08-31T13:44:02.578Z"
+    },
+    {
+      "id": "7d80850b-e3ce-47df-a687-4ff4799d87a9",
+      "pollId": "63c9cbd1-fe86-4316-8712-c0d5771bfbb3",
+      "pollChoiceId": "No",
+      "voterId": "7a7d53a9-1cbf-48a2-8355-c0345cfb7708",
+      "VoteId": "blue",
+      "rank": 2,
+      "createdAt": "2023-03-09T19:17:37.555Z",
+      "updatedAt": "2023-04-24T14:24:26.561Z"
+    },
+    {
+      "id": "e04b6634-d5a0-4479-9ac2-359ac8a59ed8",
+      "pollId": "63c9cbd1-fe86-4316-8712-c0d5771bfbb3",
+      "pollChoiceId": "Yes",
+      "voterId": "851ca73c-46f1-4e5a-8486-f2890ecb41c9",
+      "VoteId": "blue",
+      "rank": 3,
+      "createdAt": "2022-07-26T04:08:31.107Z",
+      "updatedAt": "2022-09-25T12:09:28.177Z"
+    },
+    {
+      "id": "7289f025-1e1e-40c9-9385-e345e7cbb385",
+      "pollId": "63c9cbd1-fe86-4316-8712-c0d5771bfbb3",
+      "pollChoiceId": "Yes",
+      "voterId": "5b61914b-3a81-496d-8609-58104fe95fa7",
+      "VoteId": "green",
+      "rank": 2,
+      "createdAt": "2022-08-19T23:05:29.552Z",
+      "updatedAt": "2022-07-08T19:44:12.769Z"
+    },
+    {
+      "id": "4ea5069b-1c5b-4d5f-9ee2-b540efeab198",
+      "pollId": "63c9cbd1-fe86-4316-8712-c0d5771bfbb3",
+      "pollChoiceId": "No",
+      "voterId": "6d13d3ed-be46-4f63-beda-0786344972ab",
+      "VoteId": "green",
+      "rank": 3,
+      "createdAt": "2022-09-04T10:15:00.711Z",
+      "updatedAt": "2023-03-20T10:03:22.431Z"
+    },
+    {
+      "id": "98b9a302-fc6e-491d-8f5b-66ea22e7a83d",
+      "pollId": "63c9cbd1-fe86-4316-8712-c0d5771bfbb3",
+      "pollChoiceId": "Maybe",
+      "voterId": "afb18f1a-ad8c-4b84-b4e7-97af43650fac",
+      "VoteId": "green",
+      "rank": 1,
+      "createdAt": "2023-05-16T21:58:42.775Z",
+      "updatedAt": "2022-12-19T12:54:50.016Z"
+    }
+  ],
+  "singleVoteTally": {
+    "id": "32bd49fa-77f8-4637-8d99-db22e3956f77",
+    "title": "Consequuo.",
+    "description": "Enim quoz.",
+    "voteType": "ranked",
+    "isPrivate": true,
+    "isActive": false,
+    "isClosed": false,
+    "createdBy": "5e5b54f5-7413-4232-abce-450b0b7a5767",
+    "createdAt": "2022-08-22T14:58:16.634Z",
+    "updatedAt": "2023-05-01T07:13:42.541Z",
+    "PollChoice": [
+      {
+        "id": "aba395d6-ebcf-4031-a659-1b2509f765cc",
+        "title": "Yes",
+        "pollId": "32bd49fa-77f8-4637-8d99-db22e3956f77",
+        "createdAt": "2022-10-26T17:33:39.302Z",
+        "updatedAt": "2022-12-07T04:05:43.503Z"
+      },
+      {
+        "id": "f8dbe822-f176-457b-88c3-d1f58892c750",
+        "title": "No",
+        "pollId": "32bd49fa-77f8-4637-8d99-db22e3956f77",
+        "createdAt": "2022-11-02T02:31:12.775Z",
+        "updatedAt": "2023-02-07T20:04:02.066Z"
+      },
+      {
+        "id": "2c072133-261c-474f-8d3e-5f4b481ad3e9",
+        "title": "Maybe",
+        "pollId": "32bd49fa-77f8-4637-8d99-db22e3956f77",
+        "createdAt": "2023-06-17T10:50:13.947Z",
+        "updatedAt": "2023-04-27T01:36:29.929Z"
+      }
+    ],
+    "RankedVote": [
+      {
+        "id": "b5a42745-fd78-438d-b7a9-e0c287ad778b",
+        "pollId": "32bd49fa-77f8-4637-8d99-db22e3956f77",
+        "pollChoiceId": "aba395d6-ebcf-4031-a659-1b2509f765cc",
+        "voterId": "3164df78-c1ba-4101-9532-cd33f6ee65e0",
+        "VoteId": "red",
+        "rank": 1,
+        "createdAt": "2022-10-21T18:45:49.683Z",
+        "updatedAt": "2022-09-30T09:05:37.804Z"
+      },
+      {
+        "id": "ce434450-3c3c-4240-9e42-344403ac189c",
+        "pollId": "32bd49fa-77f8-4637-8d99-db22e3956f77",
+        "pollChoiceId": "aba395d6-ebcf-4031-a659-1b2509f765cc",
+        "voterId": "b119aea6-496c-49b2-bb0b-1917047f9cae",
+        "VoteId": "blue",
+        "rank": 1,
+        "createdAt": "2023-01-17T15:21:54.107Z",
+        "updatedAt": "2023-03-26T12:19:20.184Z"
+      },
+      {
+        "id": "106ebc81-fc05-48e4-a699-93d4e5247e93",
+        "pollId": "32bd49fa-77f8-4637-8d99-db22e3956f77",
+        "pollChoiceId": "2c072133-261c-474f-8d3e-5f4b481ad3e9",
+        "voterId": "509583d3-f82b-4040-a957-bc9d9be2e2b6",
+        "VoteId": "green",
+        "rank": 1,
+        "createdAt": "2022-11-27T10:21:47.603Z",
+        "updatedAt": "2022-10-12T04:09:18.281Z"
+      },
+      {
+        "id": "76ccd963-de18-4465-b120-855233f9877a",
+        "pollId": "32bd49fa-77f8-4637-8d99-db22e3956f77",
+        "pollChoiceId": "aba395d6-ebcf-4031-a659-1b2509f765cc",
+        "voterId": "f5547b3d-652f-4068-abdf-915ca51dcfe7",
+        "VoteId": "purple",
+        "rank": 1,
+        "createdAt": "2022-07-19T07:07:17.127Z",
+        "updatedAt": "2023-05-13T10:58:13.876Z"
+      }
+    ]
+  },
+  "eliminatedVote": {
+    "id": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+    "title": "Neque duy.",
+    "description": "At blandb.",
+    "voteType": "ranked",
+    "isPrivate": false,
+    "isActive": false,
+    "isClosed": true,
+    "createdBy": "3aca423e-bbe1-4010-a4bd-e05e9729dfe0",
+    "createdAt": "2023-05-10T05:33:59.296Z",
+    "updatedAt": "2023-02-07T17:12:24.055Z",
+    "PollChoice": [
+      {
+        "id": "c82345d1-5f6b-4fd6-9db0-0fcb2ce58b3d",
+        "title": "Yes",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2022-08-12T20:47:46.022Z",
+        "updatedAt": "2023-01-05T07:07:55.961Z"
+      },
+      {
+        "id": "80526178-3516-4db8-8bfe-4651d2c07226",
+        "title": "No",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2022-12-28T00:53:19.743Z",
+        "updatedAt": "2022-07-28T13:45:39.033Z"
+      },
+      {
+        "id": "e546631d-0601-402a-8242-eb07386cce04",
+        "title": "Maybe",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2023-04-23T21:05:46.814Z",
+        "updatedAt": "2023-01-10T09:02:30.161Z"
+      }
+    ],
+    "RankedVote": [
+      {
+        "id": "32fc1ec8-afa5-4b24-99fb-f44af21abd90",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "c82345d1-5f6b-4fd6-9db0-0fcb2ce58b3d",
+        "voterId": "301e6611-7bf6-4902-8362-ca17cfacba83",
+        "VoteId": "red",
+        "rank": 1,
+        "createdAt": "2022-07-21T05:51:31.081Z",
+        "updatedAt": "2022-07-31T08:56:33.514Z"
+      },
+      {
+        "id": "969d7638-38bb-4e1d-9c11-2b32c46907e8",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "c82345d1-5f6b-4fd6-9db0-0fcb2ce58b3d",
+        "voterId": "5f568662-17f4-463a-b0d0-4a2e520780e5",
+        "VoteId": "blue",
+        "rank": 1,
+        "createdAt": "2022-06-23T08:16:49.733Z",
+        "updatedAt": "2023-01-16T01:42:50.928Z"
+      },
+      {
+        "id": "81b5080c-8e1b-4c29-81cb-e8dda80f5dd9",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "e546631d-0601-402a-8242-eb07386cce04",
+        "voterId": "3b44bfe1-14e9-4355-90b9-c0d957270650",
+        "VoteId": "green",
+        "rank": 1,
+        "createdAt": "2022-12-11T21:35:11.889Z",
+        "updatedAt": "2023-02-24T05:41:29.242Z"
+      },
+      {
+        "id": "2090c18a-7114-44be-a5d5-c8ae1ac02337",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "c82345d1-5f6b-4fd6-9db0-0fcb2ce58b3d",
+        "voterId": "763c5962-e6c2-430f-a5bd-43516cd75ca8",
+        "VoteId": "purple",
+        "rank": 1,
+        "createdAt": "2023-06-04T18:03:59.531Z",
+        "updatedAt": "2023-05-20T21:44:53.465Z"
+      },
+      {
+        "id": "f4b91a93-b972-4dd7-86b9-0ae67805012f",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "80526178-3516-4db8-8bfe-4651d2c07226",
+        "voterId": "9bbc7eda-8b6c-4878-800c-b67112029d96",
+        "VoteId": "violet",
+        "rank": 1,
+        "createdAt": "2022-07-17T22:15:12.318Z",
+        "updatedAt": "2022-07-16T09:33:32.491Z"
+      },
+      {
+        "id": "67af764a-0c00-4b2e-a9a3-14babd45718a",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "c82345d1-5f6b-4fd6-9db0-0fcb2ce58b3d",
+        "voterId": "4fe84eb8-130b-45c1-9c8c-2cc1409c69f0",
+        "VoteId": "violet",
+        "rank": 2,
+        "createdAt": "2022-11-24T19:45:35.933Z",
+        "updatedAt": "2023-03-29T22:30:44.699Z"
+      },
+      {
+        "id": "2abb0aa0-1f64-4c3e-95e7-75d017c3b3cf",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "e546631d-0601-402a-8242-eb07386cce04",
+        "voterId": "014978de-68c0-477f-a12e-fe454aa08e66",
+        "VoteId": "indigo",
+        "rank": 1,
+        "createdAt": "2022-10-21T15:51:19.643Z",
+        "updatedAt": "2023-04-27T16:40:04.949Z"
+      }
+    ]
+  },
+  "multiStageResult": {
+    "id": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+    "title": "Flee duy.",
+    "description": "At Brown.",
+    "voteType": "ranked",
+    "isPrivate": false,
+    "isActive": false,
+    "isClosed": true,
+    "createdBy": "3aca423e-bbe1-4010-a4bd-e05e9729dfe0",
+    "createdAt": "2023-05-10T05:33:59.296Z",
+    "updatedAt": "2023-02-07T17:12:24.055Z",
+    "PollChoice": [
+      {
+        "id": "Choice I",
+        "title": "Choice I",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2022-08-12T20:47:46.022Z",
+        "updatedAt": "2023-01-05T07:07:55.961Z"
+      },
+      {
+        "id": "Choice II",
+        "title": "Choice II",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2022-12-28T00:53:19.743Z",
+        "updatedAt": "2022-07-28T13:45:39.033Z"
+      },
+      {
+        "id": "Choice III",
+        "title": "Choice III",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2023-04-23T21:05:46.814Z",
+        "updatedAt": "2023-01-10T09:02:30.161Z"
+      },
+      {
+        "id": "Choice IV",
+        "title": "Choice IV",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2023-04-23T21:05:46.814Z",
+        "updatedAt": "2023-01-10T09:02:30.161Z"
+      }
+    ],
+    "RankedVote": [
+      {
+        "id": "f467184e-d69b-4469-b59f-08e5da358430",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-1",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2022-12-08T09:12:17.178Z",
+        "updatedAt": "2023-05-03T15:19:58.131Z"
+      },
+      {
+        "id": "9b185240-eafb-49c9-8bda-a09291a67ee7",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-2",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2023-03-24T21:53:48.284Z",
+        "updatedAt": "2023-02-20T23:37:24.781Z"
+      },
+      {
+        "id": "1a0804a8-d97a-4743-a288-a1988f515509",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-3",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2022-07-28T16:57:34.027Z",
+        "updatedAt": "2023-02-01T20:31:35.547Z"
+      },
+      {
+        "id": "2bf44893-32fd-4a41-9d64-ac1a48a0264d",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-4",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2023-01-01T23:03:49.885Z",
+        "updatedAt": "2022-11-28T17:18:50.151Z"
+      },
+      {
+        "id": "8b57522b-0b13-4149-82a3-325a533eb3c8",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-5",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2023-05-04T19:21:33.587Z",
+        "updatedAt": "2022-08-30T23:23:27.602Z"
+      },
+      {
+        "id": "41ec05ff-2fe7-42db-8e6b-7c26b7054bfd",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-6",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2023-04-23T20:02:59.150Z",
+        "updatedAt": "2023-01-07T16:27:40.833Z"
+      },
+      {
+        "id": "17f7b082-6b0c-4d41-983d-99eb6e8e3da5",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-7",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2022-07-14T14:37:02.654Z",
+        "updatedAt": "2023-01-06T17:58:43.015Z"
+      },
+      {
+        "id": "9244c2e6-0bb6-49b8-a3c2-fa651e104bec",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-8",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2022-07-25T11:32:34.461Z",
+        "updatedAt": "2022-10-05T17:27:37.613Z"
+      },
+      {
+        "id": "8d3bbc65-fbd4-4190-b257-7b5a862ee392",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-9",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2023-04-07T19:59:01.713Z",
+        "updatedAt": "2022-07-31T12:02:17.246Z"
+      },
+      {
+        "id": "71fd11a3-0cae-45d3-81f1-511315abd2fa",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-1",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2023-06-12T17:09:27.875Z",
+        "updatedAt": "2022-12-14T05:13:25.636Z"
+      },
+      {
+        "id": "ba1c7413-659f-4822-905c-555f915f08dd",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-2",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2023-04-24T05:08:50.844Z",
+        "updatedAt": "2022-09-10T01:26:33.160Z"
+      },
+      {
+        "id": "96638294-c5a6-4cfc-b055-f030ba498848",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-3",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2022-08-03T18:06:08.037Z",
+        "updatedAt": "2023-04-11T23:27:46.611Z"
+      },
+      {
+        "id": "07fbc446-fbcb-4e5c-ae23-837faf1b3d09",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-4",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2023-05-25T13:58:23.658Z",
+        "updatedAt": "2022-10-20T02:55:26.048Z"
+      },
+      {
+        "id": "29ca659e-55fb-4ef2-825f-7705a1f9cb39",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-5",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2022-08-04T13:17:59.015Z",
+        "updatedAt": "2022-12-11T20:26:10.574Z"
+      },
+      {
+        "id": "d1153d36-c8fd-424a-ab99-5c705f4fe98b",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-6",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2023-05-27T22:33:23.337Z",
+        "updatedAt": "2022-09-24T07:52:14.092Z"
+      },
+      {
+        "id": "d4e39bc5-3fcc-4c7b-a0fe-bf48163d649d",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-7",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2022-08-01T21:54:54.054Z",
+        "updatedAt": "2023-03-29T20:22:58.344Z"
+      },
+      {
+        "id": "61909c28-a2a4-490f-ade7-0e72e6a11947",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-8",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2022-06-22T13:36:35.392Z",
+        "updatedAt": "2023-05-01T01:23:10.764Z"
+      },
+      {
+        "id": "3f08d0d1-5626-4610-9ef1-6e5f85339cae",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-9",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2022-10-11T21:48:44.531Z",
+        "updatedAt": "2023-04-18T17:59:22.556Z"
+      },
+      {
+        "id": "c3d7d4e7-2047-4709-a40d-0c3941061180",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-1",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2022-12-16T07:42:19.824Z",
+        "updatedAt": "2023-03-02T03:08:43.372Z"
+      },
+      {
+        "id": "a020f4ed-4d6f-4eef-b6ba-6402d8b29731",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-2",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2023-04-20T23:03:50.991Z",
+        "updatedAt": "2022-12-13T15:25:51.264Z"
+      },
+      {
+        "id": "9f507de7-6fbd-416b-9508-f7fe8dbe3795",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-3",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2022-08-10T00:11:27.878Z",
+        "updatedAt": "2023-03-05T13:38:28.802Z"
+      },
+      {
+        "id": "8fe630a2-232c-4d02-b545-476cfd9e8961",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-4",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2022-10-13T23:03:16.291Z",
+        "updatedAt": "2023-03-09T01:39:05.287Z"
+      },
+      {
+        "id": "b70b8078-b87c-4ff9-9ae6-db73fdf12827",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-5",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2022-08-15T07:53:25.458Z",
+        "updatedAt": "2023-03-23T12:15:32.697Z"
+      },
+      {
+        "id": "44aa3753-fd65-45ab-89a6-746cfcb78722",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-6",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2022-07-31T08:17:32.607Z",
+        "updatedAt": "2022-08-18T09:27:41.794Z"
+      },
+      {
+        "id": "de3cb0c5-28f4-4faf-a450-db9f87eb1eac",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-7",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2023-05-23T19:03:49.060Z",
+        "updatedAt": "2023-03-27T00:54:41.373Z"
+      },
+      {
+        "id": "0e5924ae-7c6a-4a12-9181-dbac0d895f1a",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-8",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2023-02-21T11:23:49.009Z",
+        "updatedAt": "2023-04-07T11:03:01.186Z"
+      },
+      {
+        "id": "62298efb-de59-45ea-ba24-fbed6714eff5",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-9",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2023-03-16T17:32:39.316Z",
+        "updatedAt": "2022-07-30T14:06:35.838Z"
+      },
+      {
+        "id": "cae2dd6d-aa2a-414a-b223-eb4d0e279351",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-1",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2022-10-17T20:20:20.426Z",
+        "updatedAt": "2023-01-12T02:52:36.506Z"
+      },
+      {
+        "id": "4c1cafa3-4aea-4af6-baf4-cbce58f81967",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-2",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2022-08-10T21:39:17.054Z",
+        "updatedAt": "2023-05-31T03:42:45.463Z"
+      },
+      {
+        "id": "a68f525d-848f-4c88-99a2-dc4a4354af5d",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-3",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2022-11-30T03:16:37.822Z",
+        "updatedAt": "2022-09-10T23:17:21.443Z"
+      },
+      {
+        "id": "7764b2f3-64e9-4791-9a79-792e9fecb4b1",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-4",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2023-03-15T18:49:31.970Z",
+        "updatedAt": "2022-11-28T20:37:38.692Z"
+      },
+      {
+        "id": "cf4d3807-9c51-4c5c-a07a-0b884181499d",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-5",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2023-01-10T04:50:46.235Z",
+        "updatedAt": "2023-05-12T18:51:07.412Z"
+      },
+      {
+        "id": "ec34f71c-7567-4b98-ad9d-2ad4b598193e",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-6",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2023-02-19T02:34:04.457Z",
+        "updatedAt": "2023-01-12T09:54:32.734Z"
+      },
+      {
+        "id": "db1892a5-563e-49d0-b093-ca1ca0c26648",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-7",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2022-12-21T06:10:02.347Z",
+        "updatedAt": "2022-10-04T05:38:05.342Z"
+      },
+      {
+        "id": "bf9fc390-2484-4796-a3fa-1e30dd1e7771",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-8",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2023-01-13T21:50:13.024Z",
+        "updatedAt": "2023-03-11T07:30:34.707Z"
+      },
+      {
+        "id": "6ffb26a7-c924-47f2-9fed-411de812fd93",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-9",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2022-07-12T10:57:40.894Z",
+        "updatedAt": "2022-07-27T21:58:51.552Z"
+      }
+    ]
+  },
+  "noWinner": {
+    "id": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+    "title": "Flee duy.",
+    "description": "At Brown.",
+    "voteType": "ranked",
+    "isPrivate": false,
+    "isActive": false,
+    "isClosed": true,
+    "createdBy": "3aca423e-bbe1-4010-a4bd-e05e9729dfe0",
+    "createdAt": "2023-05-10T05:33:59.296Z",
+    "updatedAt": "2023-02-07T17:12:24.055Z",
+    "PollChoice": [
+      {
+        "id": "Choice I",
+        "title": "Choice I",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2022-08-12T20:47:46.022Z",
+        "updatedAt": "2023-01-05T07:07:55.961Z"
+      },
+      {
+        "id": "Choice II",
+        "title": "Choice II",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2022-12-28T00:53:19.743Z",
+        "updatedAt": "2022-07-28T13:45:39.033Z"
+      },
+      {
+        "id": "Choice III",
+        "title": "Choice III",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2023-04-23T21:05:46.814Z",
+        "updatedAt": "2023-01-10T09:02:30.161Z"
+      },
+      {
+        "id": "Choice IV",
+        "title": "Choice IV",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "createdAt": "2023-04-23T21:05:46.814Z",
+        "updatedAt": "2023-01-10T09:02:30.161Z"
+      }
+    ],
+    "RankedVote": [
+      {
+        "id": "f467184e-d69b-4469-b59f-08e5da358430",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-1",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2022-12-08T09:12:17.178Z",
+        "updatedAt": "2023-05-03T15:19:58.131Z"
+      },
+      {
+        "id": "9b185240-eafb-49c9-8bda-a09291a67ee7",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-2",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2023-03-24T21:53:48.284Z",
+        "updatedAt": "2023-02-20T23:37:24.781Z"
+      },
+      {
+        "id": "1a0804a8-d97a-4743-a288-a1988f515509",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-3",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2022-07-28T16:57:34.027Z",
+        "updatedAt": "2023-02-01T20:31:35.547Z"
+      },
+      {
+        "id": "2bf44893-32fd-4a41-9d64-ac1a48a0264d",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-4",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2023-01-01T23:03:49.885Z",
+        "updatedAt": "2022-11-28T17:18:50.151Z"
+      },
+      {
+        "id": "8b57522b-0b13-4149-82a3-325a533eb3c8",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-5",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2023-05-04T19:21:33.587Z",
+        "updatedAt": "2022-08-30T23:23:27.602Z"
+      },
+      {
+        "id": "41ec05ff-2fe7-42db-8e6b-7c26b7054bfd",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-6",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2023-04-23T20:02:59.150Z",
+        "updatedAt": "2023-01-07T16:27:40.833Z"
+      },
+      {
+        "id": "17f7b082-6b0c-4d41-983d-99eb6e8e3da5",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-7",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2022-07-14T14:37:02.654Z",
+        "updatedAt": "2023-01-06T17:58:43.015Z"
+      },
+      {
+        "id": "9244c2e6-0bb6-49b8-a3c2-fa651e104bec",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-8",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2022-07-25T11:32:34.461Z",
+        "updatedAt": "2022-10-05T17:27:37.613Z"
+      },
+      {
+        "id": "8d3bbc65-fbd4-4190-b257-7b5a862ee392",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-9",
+        "voterId": "blah",
+        "rank": 1,
+        "createdAt": "2023-04-07T19:59:01.713Z",
+        "updatedAt": "2022-07-31T12:02:17.246Z"
+      },
+      {
+        "id": "71fd11a3-0cae-45d3-81f1-511315abd2fa",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-1",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2023-06-12T17:09:27.875Z",
+        "updatedAt": "2022-12-14T05:13:25.636Z"
+      },
+      {
+        "id": "ba1c7413-659f-4822-905c-555f915f08dd",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-2",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2023-04-24T05:08:50.844Z",
+        "updatedAt": "2022-09-10T01:26:33.160Z"
+      },
+      {
+        "id": "96638294-c5a6-4cfc-b055-f030ba498848",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-3",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2022-08-03T18:06:08.037Z",
+        "updatedAt": "2023-04-11T23:27:46.611Z"
+      },
+      {
+        "id": "07fbc446-fbcb-4e5c-ae23-837faf1b3d09",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-4",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2023-05-25T13:58:23.658Z",
+        "updatedAt": "2022-10-20T02:55:26.048Z"
+      },
+      {
+        "id": "29ca659e-55fb-4ef2-825f-7705a1f9cb39",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-5",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2022-08-04T13:17:59.015Z",
+        "updatedAt": "2022-12-11T20:26:10.574Z"
+      },
+      {
+        "id": "d1153d36-c8fd-424a-ab99-5c705f4fe98b",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-6",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2023-05-27T22:33:23.337Z",
+        "updatedAt": "2022-09-24T07:52:14.092Z"
+      },
+      {
+        "id": "d4e39bc5-3fcc-4c7b-a0fe-bf48163d649d",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-7",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2022-08-01T21:54:54.054Z",
+        "updatedAt": "2023-03-29T20:22:58.344Z"
+      },
+      {
+        "id": "61909c28-a2a4-490f-ade7-0e72e6a11947",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-8",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2022-06-22T13:36:35.392Z",
+        "updatedAt": "2023-05-01T01:23:10.764Z"
+      },
+      {
+        "id": "3f08d0d1-5626-4610-9ef1-6e5f85339cae",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-9",
+        "voterId": "blah",
+        "rank": 2,
+        "createdAt": "2022-10-11T21:48:44.531Z",
+        "updatedAt": "2023-04-18T17:59:22.556Z"
+      },
+      {
+        "id": "c3d7d4e7-2047-4709-a40d-0c3941061180",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-1",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2022-12-16T07:42:19.824Z",
+        "updatedAt": "2023-03-02T03:08:43.372Z"
+      },
+      {
+        "id": "a020f4ed-4d6f-4eef-b6ba-6402d8b29731",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-2",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2023-04-20T23:03:50.991Z",
+        "updatedAt": "2022-12-13T15:25:51.264Z"
+      },
+      {
+        "id": "9f507de7-6fbd-416b-9508-f7fe8dbe3795",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-3",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2022-08-10T00:11:27.878Z",
+        "updatedAt": "2023-03-05T13:38:28.802Z"
+      },
+      {
+        "id": "8fe630a2-232c-4d02-b545-476cfd9e8961",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-4",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2022-10-13T23:03:16.291Z",
+        "updatedAt": "2023-03-09T01:39:05.287Z"
+      },
+      {
+        "id": "b70b8078-b87c-4ff9-9ae6-db73fdf12827",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-5",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2022-08-15T07:53:25.458Z",
+        "updatedAt": "2023-03-23T12:15:32.697Z"
+      },
+      {
+        "id": "44aa3753-fd65-45ab-89a6-746cfcb78722",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-6",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2022-07-31T08:17:32.607Z",
+        "updatedAt": "2022-08-18T09:27:41.794Z"
+      },
+      {
+        "id": "de3cb0c5-28f4-4faf-a450-db9f87eb1eac",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-7",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2023-05-23T19:03:49.060Z",
+        "updatedAt": "2023-03-27T00:54:41.373Z"
+      },
+      {
+        "id": "0e5924ae-7c6a-4a12-9181-dbac0d895f1a",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-8",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2023-02-21T11:23:49.009Z",
+        "updatedAt": "2023-04-07T11:03:01.186Z"
+      },
+      {
+        "id": "62298efb-de59-45ea-ba24-fbed6714eff5",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice I",
+        "VoteId": "vote-9",
+        "voterId": "blah",
+        "rank": 3,
+        "createdAt": "2023-03-16T17:32:39.316Z",
+        "updatedAt": "2022-07-30T14:06:35.838Z"
+      },
+      {
+        "id": "cae2dd6d-aa2a-414a-b223-eb4d0e279351",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-1",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2022-10-17T20:20:20.426Z",
+        "updatedAt": "2023-01-12T02:52:36.506Z"
+      },
+      {
+        "id": "4c1cafa3-4aea-4af6-baf4-cbce58f81967",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-2",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2022-08-10T21:39:17.054Z",
+        "updatedAt": "2023-05-31T03:42:45.463Z"
+      },
+      {
+        "id": "a68f525d-848f-4c88-99a2-dc4a4354af5d",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-3",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2022-11-30T03:16:37.822Z",
+        "updatedAt": "2022-09-10T23:17:21.443Z"
+      },
+      {
+        "id": "7764b2f3-64e9-4791-9a79-792e9fecb4b1",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-4",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2023-03-15T18:49:31.970Z",
+        "updatedAt": "2022-11-28T20:37:38.692Z"
+      },
+      {
+        "id": "cf4d3807-9c51-4c5c-a07a-0b884181499d",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice IV",
+        "VoteId": "vote-5",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2023-01-10T04:50:46.235Z",
+        "updatedAt": "2023-05-12T18:51:07.412Z"
+      },
+      {
+        "id": "ec34f71c-7567-4b98-ad9d-2ad4b598193e",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-6",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2023-02-19T02:34:04.457Z",
+        "updatedAt": "2023-01-12T09:54:32.734Z"
+      },
+      {
+        "id": "db1892a5-563e-49d0-b093-ca1ca0c26648",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-7",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2022-12-21T06:10:02.347Z",
+        "updatedAt": "2022-10-04T05:38:05.342Z"
+      },
+      {
+        "id": "bf9fc390-2484-4796-a3fa-1e30dd1e7771",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice II",
+        "VoteId": "vote-8",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2023-01-13T21:50:13.024Z",
+        "updatedAt": "2023-03-11T07:30:34.707Z"
+      },
+      {
+        "id": "6ffb26a7-c924-47f2-9fed-411de812fd93",
+        "pollId": "c3d5092f-9f76-4f5f-b29d-3405ed74e286",
+        "pollChoiceId": "Choice III",
+        "VoteId": "vote-9",
+        "voterId": "blah",
+        "rank": 4,
+        "createdAt": "2022-07-12T10:57:40.894Z",
+        "updatedAt": "2022-07-27T21:58:51.552Z"
+      }
+    ]
+  }
+}

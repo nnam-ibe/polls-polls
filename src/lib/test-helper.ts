@@ -1,11 +1,12 @@
 import {
   rand,
   randBoolean,
+  randNumber,
   randPastDate,
   randText,
   randUuid,
 } from "@ngneat/falso";
-import { Poll, PollChoice, SingleVote } from "@prisma/client";
+import { Poll, PollChoice, RankedVote, SingleVote } from "@prisma/client";
 
 type Opts = {
   length?: number;
@@ -56,6 +57,32 @@ function singleVote(
   return result;
 }
 
+function rankedVote(props?: Partial<RankedVote>): RankedVote;
+function rankedVote(props?: Partial<RankedVote>, options?: Opts): RankedVote[];
+function rankedVote(
+  props?: Partial<RankedVote>,
+  options?: Opts
+): RankedVote | RankedVote[] {
+  const length = options?.length ?? 1;
+
+  const VoteId = randUuid();
+  const pollId = randUuid();
+  const result: RankedVote[] = Array.from({ length }).map(() => ({
+    id: randUuid(),
+    pollId,
+    pollChoiceId: randUuid(),
+    voterId: randUuid(),
+    VoteId,
+    rank: randNumber({ min: 1, max: 10 }),
+    createdAt: randPastDate(),
+    updatedAt: randPastDate(),
+    ...props,
+  }));
+
+  if (length === 1) return result[0];
+  return result;
+}
+
 function pollChoice(props?: Partial<PollChoice>): PollChoice;
 function pollChoice(props?: Partial<PollChoice>, options?: Opts): PollChoice[];
 function pollChoice(
@@ -81,4 +108,5 @@ export const faker = {
   poll,
   singleVote,
   pollChoice,
+  rankedVote,
 };
