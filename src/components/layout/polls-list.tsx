@@ -1,4 +1,5 @@
 import type { Poll } from "@/lib/types/poll";
+import { ArrowDownWideNarrow, Crosshair } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
@@ -7,10 +8,12 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 type PollsListProps = {
   title: string;
+  params: Record<string, string>;
 };
 
-async function fetchPolls() {
-  const res = await fetch(`${baseUrl}/api/polls`, {
+async function fetchPolls(parameters: Record<string, string> = {}) {
+  const params = new URLSearchParams(parameters);
+  const res = await fetch(`${baseUrl}/api/polls?${params.toString()}`, {
     next: { revalidate: 60 },
   });
   const json = (await res.json()) as Poll[];
@@ -33,19 +36,28 @@ function ListSkeleton(props: PollsListProps) {
 }
 
 async function List(props: PollsListProps) {
-  const polls = await fetchPolls();
+  const polls = await fetchPolls(props.params);
   const { title } = props;
   return (
     <div className="poll-list">
       <div className="mb-2 text-xl font-bold p-3">{title}</div>
       {polls.map((poll) => (
         <Link key={poll.id} href={`/poll/${poll.id}`}>
-          <div className="group text-blue-500 hover:bg-accent rounded-lg p-3">
-            <div className="font-bold mb-1 group-hover:text-primary-foreground">
-              {poll.title}
+          <div className="group text-blue-500 hover:bg-accent rounded-lg p-3 flex flex-row justify-between">
+            <div>
+              <div className="font-bold mb-1 group-hover:text-primary-foreground">
+                {poll.title}
+              </div>
+              <div className="text-sm mb-1 text-muted-foreground group-hover:text-primary-foreground">
+                {poll.description}
+              </div>
             </div>
-            <div className="text-sm mb-1 text-muted-foreground group-hover:text-primary-foreground">
-              {poll.description}
+            <div>
+              {poll.voteType === "single" ? (
+                <Crosshair />
+              ) : (
+                <ArrowDownWideNarrow />
+              )}
             </div>
           </div>
         </Link>
