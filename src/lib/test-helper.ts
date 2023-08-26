@@ -1,3 +1,4 @@
+import type { Poll, PollChoice, RankedVote, SingleVote } from "@/lib/types";
 import {
   rand,
   randBoolean,
@@ -6,7 +7,6 @@ import {
   randText,
   randUuid,
 } from "@ngneat/falso";
-import { Poll, PollChoice, RankedVote, SingleVote } from "@prisma/client";
 
 type Opts = {
   length?: number;
@@ -97,6 +97,7 @@ function pollChoice(
     pollId: randUuid(),
     createdAt: randPastDate(),
     updatedAt: randPastDate(),
+    createdBy: randUuid(),
     ...props,
   }));
 

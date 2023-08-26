@@ -102,6 +102,52 @@ const TableCaption = React.forwardRef<
 ));
 TableCaption.displayName = "TableCaption";
 
+type AppTableHeader = {
+  label: string;
+  className?: string;
+};
+
+type AppTableData = {
+  id: string;
+  className?: string;
+  [key: string]: string | number | boolean | undefined;
+};
+
+type AppTableProps = {
+  caption: string;
+  headers: AppTableHeader[];
+  rows: AppTableData[];
+};
+
+export function AppTable(props: AppTableProps) {
+  const { headers, caption, rows } = props;
+  return (
+    <Table>
+      <TableCaption>{caption}</TableCaption>
+      <TableHeader>
+        <TableRow>
+          {headers.map((header) => (
+            <TableHead key={header.label} className={header.className}>
+              {header.label}
+            </TableHead>
+          ))}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {rows.map((row) => (
+          <TableRow key={row.id}>
+            {headers.map((header, index) => (
+              <TableCell className={row.className} key={index}>
+                {row[header.label]}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+
 export {
   Table,
   TableBody,

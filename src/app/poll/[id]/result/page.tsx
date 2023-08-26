@@ -1,9 +1,8 @@
 import { Center } from "@/components/layout/center";
 import { SingleResult } from "@/components/layout/vote/single-result";
 import {
+  ApiPollwSVotesSchema,
   IsSingleResult,
-  PollWChoicesSchema,
-  RankedResultSchema,
   SingleResultSchema,
 } from "@/lib/types";
 import { MoveLeft } from "lucide-react";
@@ -26,7 +25,8 @@ export default async function ResultPage({
   const rawResponse = await response.json();
 
   const isSingleResult = IsSingleResult.parse(rawResponse);
-  const poll = PollWChoicesSchema.parse(rawResponse.poll);
+  const poll = ApiPollwSVotesSchema.parse(rawResponse.poll);
+  // TODO: remove?
   // const poll = isSingleResult ? SingleResultSchema.parse(rawResult) : RankedResultSchema.parse(rawResult);
 
   if (isSingleResult) {

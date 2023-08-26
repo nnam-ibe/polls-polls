@@ -1,38 +1,53 @@
+import {
+  dbPollChoices,
+  dbPolls,
+  dbRankedVotes,
+  dbSingleVotes,
+} from "@/db/schema";
+import { type InferSelectModel } from "drizzle-orm";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import * as z from "zod";
 
-export const PollChoiceSchema = z.object({
-  id: z.string(),
-  title: z.string().min(1).max(32),
-  pollId: z.string(),
+const stringDates = {
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+};
+
+export type PollChoice = InferSelectModel<typeof dbPollChoices>;
+export const PollChoiceSchema = createSelectSchema(dbPollChoices);
+export const ApiPollChoiceSchema = PollChoiceSchema.extend(stringDates);
+export const PollChoiceInsertSchema = createInsertSchema(dbPollChoices);
+
+export type SingleVote = InferSelectModel<typeof dbSingleVotes>;
+export const SingleVoteSchema = createSelectSchema(dbSingleVotes);
+export const ApiSingleVoteSchema = SingleVoteSchema.extend(stringDates);
+export const SingleVoteInsertSchema = createInsertSchema(dbSingleVotes);
+export type RankedVote = InferSelectModel<typeof dbRankedVotes>;
+export const RankedVoteSchema = createSelectSchema(dbRankedVotes);
+export const ApiRankedVoteSchema = RankedVoteSchema.extend(stringDates);
+
+export type Poll = InferSelectModel<typeof dbPolls>;
+export type PollWChoices = Poll & { PollChoices: PollChoice[] };
+export type PollwSVotes = Poll & {
+  PollChoices: PollChoice[];
+  SingleVotes: SingleVote[];
+};
+export type PollwRVotes = Poll & {
+  PollChoices: PollChoice[];
+  RankedVotes: RankedVote[];
+};
+
+export const PollSchema = createSelectSchema(dbPolls);
+export const ApiPollSchema = PollSchema.extend(stringDates);
+export const PollInsertSchema = createInsertSchema(dbPolls);
+export const ApiPollwChoicesSchema = ApiPollSchema.extend({
+  PollChoices: z.array(ApiPollChoiceSchema),
 });
-
-export const APIPollChoiceSchema = PollChoiceSchema.omit({
-  id: true,
+export const ApiPollwSVotesSchema = ApiPollwChoicesSchema.extend({
+  SingleVotes: z.array(ApiSingleVoteSchema),
 });
-
-const VoteType = z.enum(["single", "ranked"]);
-
-export const PollSchema = z.object({
-  id: z.string(),
-  title: z.string().min(1).max(32),
-  description: z.string(),
-  voteType: VoteType,
-  isPrivate: z.boolean(),
-  isActive: z.boolean(),
-  isClosed: z.boolean(),
-  createdBy: z.string().nullable().optional(),
-});
-
-export const APIPollSchema = PollSchema.extend({
-  id: z.string().optional(),
-  description: z.string().max(64).default(""),
-  isPrivate: z.boolean().default(false),
-  isActive: z.boolean().default(true),
-  isClosed: z.boolean().default(false),
-});
-
-export const PollWChoicesSchema = PollSchema.extend({
-  PollChoice: z.array(PollChoiceSchema),
+export const ApiPollwRVotesSchema = ApiPollwChoicesSchema.extend({
+  RankedVotes: z.array(ApiRankedVoteSchema),
 });
 
 export const CreatePollResultSchema = z.object({
@@ -40,18 +55,11 @@ export const CreatePollResultSchema = z.object({
   id: z.string(),
 });
 
-export const SingleVoteSchema = z.object({
-  id: z.string().optional(),
-  pollId: z.string(),
-  choiceId: z.string(),
-  userId: z.string().optional(),
-});
-
 export const RankedResultSchema = z.object({
   winner: z.string().nullable(),
   numberOfVotes: z.number(),
   threshold: z.number(),
-  voteType: VoteType,
+  voteType: PollSchema.shape.voteType,
   stages: z
     .object({
       highestChoiceId: z.string(),
@@ -63,31 +71,21 @@ export const RankedResultSchema = z.object({
     })
     .array(),
 });
+export type RankedResult = z.infer<typeof RankedResultSchema>;
 
 export const SingleResultSchema = z.object({
   tally: z.record(z.number()),
   winner: z.string().nullable(),
   numberOfVotes: z.number(),
   threshold: z.number(),
-  voteType: VoteType,
+  voteType: PollSchema.shape.voteType,
 });
+export type SingleResult = z.infer<typeof SingleResultSchema>;
 
 export const IsSingleResult = z
   .object({
     result: z.object({
-      voteType: VoteType,
+      voteType: PollSchema.shape.voteType,
     }),
   })
   .transform((val) => val.result.voteType === "single");
-
-export type Poll = z.infer<typeof PollSchema>;
-export type PollWChoices = z.infer<typeof PollWChoicesSchema>;
-export type APIPoll = z.infer<typeof APIPollSchema>;
-
-export type PollChoice = z.infer<typeof PollChoiceSchema>;
-export type APIPollChoice = z.infer<typeof APIPollChoiceSchema>;
-
-export type SingleVote = z.infer<typeof SingleVoteSchema>;
-
-export type RankedResult = z.infer<typeof RankedResultSchema>;
-export type SingleResult = z.infer<typeof SingleResultSchema>;

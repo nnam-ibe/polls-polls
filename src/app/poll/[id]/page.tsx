@@ -11,7 +11,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
-import { ApiErrorSchema, PollWChoices } from "@/lib/types";
+import type { PollWChoices } from "@/lib/types";
+import { ApiErrorSchema } from "@/lib/types";
 import { useClerk } from "@clerk/clerk-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoveRight } from "lucide-react";
@@ -97,7 +98,7 @@ function PollComponent(props: { poll: PollWChoices }) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const invalidRecord: Record<string, string> = formConfig.validator(
       values as any,
-      poll.PollChoice
+      poll.PollChoices
     );
     const invalidFields = Object.keys(invalidRecord);
     if (invalidFields.length > 0) {
@@ -110,7 +111,7 @@ function PollComponent(props: { poll: PollWChoices }) {
       return;
     }
 
-    await submitVote({ ...values, pollId: poll.id, userId: user?.id });
+    await submitVote({ ...values, pollId: poll.id, voterId: user?.id });
   }
 
   const VoteComponent = poll.voteType === "single" ? SingleVote : RankedVote;

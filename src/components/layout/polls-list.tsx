@@ -1,6 +1,6 @@
-import { Suspense } from "react";
-import { Poll } from "@prisma/client";
+import type { Poll } from "@/lib/types/poll";
 import Link from "next/link";
+import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;

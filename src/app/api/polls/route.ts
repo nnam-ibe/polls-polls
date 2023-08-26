@@ -1,13 +1,13 @@
+import { db } from "@/db/index";
+import { dbPolls } from "@/db/schema";
 import { getError } from "@/lib/error-handler";
-import prisma from "@/lib/prisma";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   try {
-    const polls = await prisma.poll.findMany({
-      where: {
-        isActive: true,
-      },
+    const polls = await db.query.dbPolls.findMany({
+      where: eq(dbPolls.isActive, true),
     });
     return NextResponse.json(polls);
   } catch (err) {

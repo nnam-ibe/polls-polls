@@ -18,7 +18,7 @@ export function SingleResult(props: SingleResultProps) {
   const { result, poll } = props;
   const choices = Object.keys(result.tally);
   const choiceTitles: Record<string, string> = {};
-  poll.PollChoice.forEach((choice) => {
+  poll.PollChoices.forEach((choice) => {
     choiceTitles[choice.id] = choice.title;
   });
   choices.sort((a, b) => result.tally[b] - result.tally[a]);

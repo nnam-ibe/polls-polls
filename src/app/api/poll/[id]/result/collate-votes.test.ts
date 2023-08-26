@@ -1,6 +1,6 @@
 import rVoteFixture from "@/lib/fixtures/ranked-votes.json";
 import { faker } from "@/lib/test-helper";
-import type { PollwRVotes } from "./collate-votes";
+import type { PollwRVotes } from "@/lib/types";
 import {
   calculateRankedResult,
   calculateSingleResult,
@@ -9,6 +9,7 @@ import {
 } from "./collate-votes";
 
 type WithDate = {
+  createdBy?: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -16,6 +17,7 @@ type WithDate = {
 function parseRankedFixtures<T extends WithDate>(records: T[]) {
   return records.map((v) => ({
     ...v,
+    createdBy: v.createdBy ?? "test",
     createdAt: new Date(v.createdAt),
     updatedAt: new Date(v.updatedAt),
   }));
@@ -29,8 +31,8 @@ function parsePollRankedFixture(
     voteType: "ranked",
     createdAt: new Date(record.createdAt),
     updatedAt: new Date(record.updatedAt),
-    RankedVote: parseRankedFixtures(record.RankedVote),
-    PollChoice: parseRankedFixtures(record.PollChoice),
+    RankedVotes: parseRankedFixtures(record.RankedVote),
+    PollChoices: parseRankedFixtures(record.PollChoice),
   };
 }
 
@@ -62,8 +64,8 @@ describe("poll/[id]/result/collate-votes", () => {
 
       const result = calculateSingleResult({
         ...poll,
-        PollChoice: pollChoices,
-        SingleVote: votes,
+        PollChoices: pollChoices,
+        SingleVotes: votes,
       });
 
       expect(result).toEqual({
@@ -109,8 +111,8 @@ describe("poll/[id]/result/collate-votes", () => {
 
       const result = calculateSingleResult({
         ...poll,
-        PollChoice: pollChoices,
-        SingleVote: votes,
+        PollChoices: pollChoices,
+        SingleVotes: votes,
       });
 
       expect(result).toEqual({
@@ -142,7 +144,7 @@ describe("poll/[id]/result/collate-votes", () => {
 
     it("should correctly compileStage", () => {
       const poll = parsePollRankedFixture(rVoteFixture.eliminatedVote);
-      const pollChoices = poll.PollChoice;
+      const pollChoices = poll.PollChoices;
 
       const result = compileStage({
         poll,
@@ -154,7 +156,7 @@ describe("poll/[id]/result/collate-votes", () => {
           "violet",
           "indigo",
         ]),
-        votesById: groupVotesByVoteId(poll.RankedVote).votesById,
+        votesById: groupVotesByVoteId(poll.RankedVotes).votesById,
         eliminatedChoiceIds: new Set([pollChoices[1].id]),
         cutoff: 0,
       });
@@ -175,7 +177,7 @@ describe("poll/[id]/result/collate-votes", () => {
     it("should return winner and tally", () => {
       const poll = parsePollRankedFixture(rVoteFixture.singleVoteTally);
 
-      const pollChoices = poll.PollChoice;
+      const pollChoices = poll.PollChoices;
       const { stages, winner, numberOfVotes, threshold, voteType } =
         calculateRankedResult(poll);
 

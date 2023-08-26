@@ -1,9 +1,4 @@
-import { Poll, PollChoice, RankedVote, SingleVote } from "@prisma/client";
-
-type PollwSVotes = Poll & {
-  PollChoice: PollChoice[];
-  SingleVote: SingleVote[];
-};
+import type { PollwRVotes, PollwSVotes, RankedVote } from "@/lib/types";
 
 export function calculateSingleResult(poll: PollwSVotes) {
   if (poll.voteType !== "single") {
@@ -11,15 +6,15 @@ export function calculateSingleResult(poll: PollwSVotes) {
   }
 
   const tallyCount: Record<string, number> = {};
-  poll.PollChoice.forEach((choice) => {
+  poll.PollChoices.forEach((choice) => {
     tallyCount[choice.id] = 0;
   });
 
-  let highestChoiceId = poll.PollChoice[0].id;
+  let highestChoiceId = poll.PollChoices[0].id;
   let highestChoiceCount = 0;
   let winner: string | null = null;
 
-  poll.SingleVote.forEach((vote) => {
+  poll.SingleVotes.forEach((vote) => {
     const choiceId = vote.pollChoiceId;
 
     const prevCount = tallyCount[choiceId];
@@ -32,7 +27,7 @@ export function calculateSingleResult(poll: PollwSVotes) {
     }
   });
 
-  const threshold = Math.floor(poll.SingleVote.length / 2) + 1;
+  const threshold = Math.floor(poll.SingleVotes.length / 2) + 1;
   if (highestChoiceCount >= threshold) {
     winner = highestChoiceId;
   }
@@ -41,17 +36,12 @@ export function calculateSingleResult(poll: PollwSVotes) {
     tally: tallyCount,
     winner,
     threshold,
-    numberOfVotes: poll.SingleVote.length,
+    numberOfVotes: poll.SingleVotes.length,
     voteType: poll.voteType,
   };
 }
 
-export type PollwRVotes = Poll & {
-  PollChoice: PollChoice[];
-  RankedVote: RankedVote[];
-};
-
-export function groupVotesByVoteId(rankedVotes: PollwRVotes["RankedVote"]) {
+export function groupVotesByVoteId(rankedVotes: PollwRVotes["RankedVotes"]) {
   const voteIds = new Set<string>();
   const votesById: Record<string, Array<RankedVote>> = {};
   rankedVotes.forEach((vote) => {
@@ -86,11 +76,11 @@ export function compileStage({
   cutoff,
 }: CompileOpts) {
   const tallyCount: Record<string, number> = {};
-  poll.PollChoice.forEach((choice) => {
+  poll.PollChoices.forEach((choice) => {
     tallyCount[choice.id] = 0;
   });
 
-  let highestChoiceId = poll.PollChoice[0].id;
+  let highestChoiceId = poll.PollChoices[0].id;
   let highestChoiceCount = 0;
 
   voteIds.forEach((voteId) => {
@@ -118,7 +108,7 @@ export function compileStage({
   let lowestChoiceId = highestChoiceId;
   let lowestChoiceCount = highestChoiceCount;
 
-  poll.PollChoice.forEach((choice) => {
+  poll.PollChoices.forEach((choice) => {
     if (eliminatedChoiceIds.has(choice.id)) return;
 
     const count = tallyCount[choice.id];
@@ -145,7 +135,7 @@ export function calculateRankedResult(poll: PollwRVotes) {
   if (poll.voteType !== "ranked") {
     throw new Error("ranked vote type expected");
   }
-  const { voteIds, votesById } = groupVotesByVoteId(poll.RankedVote);
+  const { voteIds, votesById } = groupVotesByVoteId(poll.RankedVotes);
 
   const threshold = Math.floor(voteIds.size / 2) + 1;
   const stages: Stage[] = [];
@@ -171,7 +161,7 @@ export function calculateRankedResult(poll: PollwRVotes) {
     }
 
     eliminatedChoiceIds.add(stage.lowestChoiceId);
-    poll.PollChoice.forEach((choice) => {
+    poll.PollChoices.forEach((choice) => {
       if (eliminatedChoiceIds.has(choice.id)) return;
       if (stage.tallyCount[choice.id] <= cutoff) {
         eliminatedChoiceIds.add(choice.id);

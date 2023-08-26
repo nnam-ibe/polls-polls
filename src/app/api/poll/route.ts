@@ -1,22 +1,24 @@
+import { db } from "@/db/index";
+import { dbPollChoices, dbPolls } from "@/db/schema";
 import { getError } from "@/lib/error-handler";
-import prisma from "@/lib/prisma";
-import { APIPollChoiceSchema, APIPollSchema } from "@/lib/types";
+import { PollChoiceInsertSchema, PollInsertSchema } from "@/lib/types";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const pollData = APIPollSchema.parse(body);
-    const poll = await prisma.poll.create({ data: pollData });
+    const pollData = PollInsertSchema.parse(body);
+    const result = await db.insert(dbPolls).values(pollData).returning();
+    const poll = result[0];
 
     const choices = Array.from(body.choices, (choice) =>
-      APIPollChoiceSchema.parse({
+      PollChoiceInsertSchema.parse({
         title: choice,
         pollId: poll.id,
       })
     );
 
-    await prisma.pollChoice.createMany({ data: choices });
+    await db.insert(dbPollChoices).values(choices);
 
     return NextResponse.json({ message: "Poll Created", id: poll.id });
   } catch (err) {
