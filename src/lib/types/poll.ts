@@ -25,6 +25,10 @@ export const SingleVoteInsertSchema = createInsertSchema(dbSingleVotes);
 export type RankedVote = InferSelectModel<typeof dbRankedVotes>;
 export const RankedVoteSchema = createSelectSchema(dbRankedVotes);
 export const ApiRankedVoteSchema = RankedVoteSchema.extend(stringDates);
+export const RankedVoteInsertSchema = z.object({
+  pollId: z.string(),
+  ranking: z.array(z.string()),
+});
 
 export type Poll = InferSelectModel<typeof dbPolls>;
 export type PollWChoices = Poll & { PollChoices: PollChoice[] };

@@ -14,7 +14,6 @@ function validator(
   options: PollWChoices["PollChoices"]
 ) {
   const chosenOptions = new Map<string, string>();
-  const duplicatedFields = new Set<string>();
   const errors: Record<string, string> = {};
   let lastOptionWithValue = options.length;
 

@@ -36,6 +36,13 @@ type Action =
       type: "submitVoteError";
     };
 
+type VoteData = {
+  pollId: string;
+  ranking?: string[];
+  pollChoiceId?: string;
+  [key: string]: string | string[] | undefined;
+};
+
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "submitVote":
@@ -74,9 +81,20 @@ function PollComponent(props: { poll: PollWChoices }) {
   const { toast } = useToast();
   const { user } = useClerk();
 
-  async function submitVote(data: unknown) {
+  async function submitVote(data: VoteData) {
     try {
       dispatch({ type: "submitVote" });
+
+      if (poll.voteType === "ranked") {
+        const dataRecord = data as Record<string, string>;
+        const ranking = [dataRecord["0"]];
+        for (let i = 1; i < poll.PollChoices.length; i++) {
+          const val = dataRecord[i.toString()];
+          if (!val) break;
+          ranking.push(val);
+        }
+        data.ranking = ranking;
+      }
       const response = await fetch(`${baseUrl}/api/poll/${poll.id}/vote`, {
         method: "POST",
         body: JSON.stringify(data),

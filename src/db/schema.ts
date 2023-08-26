@@ -9,7 +9,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-const smallTextLength = 32;
+const smallTextLength = 64;
 export const voteTypeEnum = pgEnum("vote_type", ["single", "ranked"]);
 
 export const dbPolls = pgTable("polls", {
