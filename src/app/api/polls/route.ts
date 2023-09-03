@@ -1,7 +1,7 @@
 import { db } from "@/db/index";
 import { dbPolls } from "@/db/schema";
 import { getError } from "@/lib/error-handler";
-import { and, eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -9,7 +9,10 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const params = new URLSearchParams(url.searchParams);
 
-    let whereClause: ReturnType<typeof and> = eq(dbPolls.isActive, true);
+    let whereClause = and(
+      eq(dbPolls.isActive, true),
+      isNull(dbPolls.deletedAt)
+    );
     if (params.has("isClosed")) {
       whereClause = and(
         whereClause,

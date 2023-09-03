@@ -28,6 +28,7 @@ function poll(props?: Partial<Poll>, options?: Opts): Poll | Poll[] {
     createdBy: randUuid(),
     createdAt: randPastDate(),
     updatedAt: randPastDate(),
+    deletedAt: null,
     ...props,
   }));
 
@@ -50,6 +51,7 @@ function singleVote(
     voterId: randUuid(),
     createdAt: randPastDate(),
     updatedAt: randPastDate(),
+    deletedAt: null,
     ...props,
   }));
 
@@ -76,6 +78,7 @@ function rankedVote(
     rank: randNumber({ min: 1, max: 10 }),
     createdAt: randPastDate(),
     updatedAt: randPastDate(),
+    deletedAt: null,
     ...props,
   }));
 
@@ -98,6 +101,7 @@ function pollChoice(
     createdAt: randPastDate(),
     updatedAt: randPastDate(),
     createdBy: randUuid(),
+    deletedAt: null,
     ...props,
   }));
 

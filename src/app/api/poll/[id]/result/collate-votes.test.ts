@@ -20,6 +20,7 @@ function parseRankedFixtures<T extends WithDate>(records: T[]) {
     createdBy: v.createdBy ?? "test",
     createdAt: new Date(v.createdAt),
     updatedAt: new Date(v.updatedAt),
+    deletedAt: null,
   }));
 }
 
@@ -31,6 +32,7 @@ function parsePollRankedFixture(
     voteType: "ranked",
     createdAt: new Date(record.createdAt),
     updatedAt: new Date(record.updatedAt),
+    deletedAt: null,
     RankedVotes: parseRankedFixtures(record.RankedVote),
     PollChoices: parseRankedFixtures(record.PollChoice),
   };
