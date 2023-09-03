@@ -23,6 +23,7 @@ export const dbPolls = pgTable("polls", {
   createdBy: varchar("created_by", { length: 255 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  deletedAt: timestamp("deleted_at"),
 });
 
 export const dbPollRelations = relations(dbPolls, ({ many }) => ({
@@ -38,6 +39,7 @@ export const dbPollChoices = pgTable("poll_choices", {
   createdBy: varchar("created_by", { length: 255 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  deletedAt: timestamp("deleted_at"),
 });
 
 export const dbPollChoiceRelations = relations(
@@ -59,6 +61,7 @@ export const dbSingleVotes = pgTable("single_votes", {
   voterId: varchar("voter_id", { length: 255 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  deletedAt: timestamp("deleted_at"),
 });
 
 export const dbSingleVotesRelations = relations(dbSingleVotes, ({ one }) => ({
@@ -81,6 +84,7 @@ export const dbRankedVotes = pgTable("ranked_votes", {
   rank: integer("rank").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  deletedAt: timestamp("deleted_at"),
 });
 
 export const dbRankedVotesRelations = relations(dbRankedVotes, ({ one }) => ({
