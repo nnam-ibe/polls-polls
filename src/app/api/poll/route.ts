@@ -2,12 +2,16 @@ import { db } from "@/db/index";
 import { dbPollChoices, dbPolls } from "@/db/schema";
 import { getError } from "@/lib/error-handler";
 import { PollChoiceInsertSchema, PollInsertSchema } from "@/lib/types";
-import { NextResponse } from "next/server";
+import { getAuth } from "@clerk/nextjs/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    const { userId } = getAuth(request);
     const body = await request.json();
     const pollData = PollInsertSchema.parse(body);
+    pollData.createdBy = userId;
+
     const result = await db.insert(dbPolls).values(pollData).returning();
     const poll = result[0];
 
@@ -15,6 +19,7 @@ export async function POST(request: Request) {
       PollChoiceInsertSchema.parse({
         title: choice,
         pollId: poll.id,
+        createdBy: userId,
       })
     );
 

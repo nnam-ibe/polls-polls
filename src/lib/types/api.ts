@@ -1,3 +1,4 @@
+import { NextRequest } from "next/server";
 import * as z from "zod";
 
 type Context<T> = {
@@ -5,7 +6,7 @@ type Context<T> = {
 };
 
 export type RequestHandler<T> = (
-  request: Request,
+  request: NextRequest,
   context: Context<T>
 ) => Promise<Response>;
 

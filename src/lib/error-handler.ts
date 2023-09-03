@@ -16,6 +16,9 @@ export function getError(error: unknown): AppError {
     const validationError = fromZodError(error);
     return new AppError(validationError.message, 400);
   }
+  if (error instanceof SyntaxError && error.message.includes("JSON")) {
+    return new AppError("Malformed JSON", 400);
+  }
 
   return new AppError("Internal Server Error", 500);
 }

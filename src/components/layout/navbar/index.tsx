@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
 import { faPoll } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -17,7 +17,7 @@ export function Navbar() {
         </SignedIn>
 
         <SignedOut>
-          <p>Signed out</p>
+          <SignInButton />
         </SignedOut>
       </div>
     </nav>

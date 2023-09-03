@@ -7,13 +7,19 @@ import {
   SingleVoteInsertSchema,
 } from "@/lib/types";
 import type { PollWChoices } from "@/lib/types/poll";
+import { getAuth } from "@clerk/nextjs/server";
 import { randomUUID } from "crypto";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-let POST: RequestHandler<{ id: string }>;
+type HandleVoteProps = {
+  poll: PollWChoices;
+  body: unknown;
+  userId: string | null;
+};
 
-async function handleSingleVote(poll: PollWChoices, body: unknown) {
+async function handleSingleVote(props: HandleVoteProps) {
+  const { poll, body, userId } = props;
   const data = SingleVoteInsertSchema.parse(body);
   const choice = poll.PollChoices.find(
     (choice) => choice.id === data.pollChoiceId
@@ -25,11 +31,12 @@ async function handleSingleVote(poll: PollWChoices, body: unknown) {
   await db.insert(dbSingleVotes).values({
     pollId: data.pollId,
     pollChoiceId: data.pollChoiceId,
-    voterId: data.voterId,
+    voterId: userId,
   });
 }
 
-async function handleRankedVote(poll: PollWChoices, body: unknown) {
+async function handleRankedVote(props: HandleVoteProps) {
+  const { poll, body, userId } = props;
   const voteId = randomUUID();
   const data = RankedVoteInsertSchema.parse(body);
 
@@ -44,14 +51,19 @@ async function handleRankedVote(poll: PollWChoices, body: unknown) {
       pollChoiceId: choiceId,
       rank: index + 1,
       VoteId: voteId,
+      voterId: userId,
     });
   });
 
   return Promise.all(promises);
 }
 
-POST = async (request, context) => {
+export const POST: RequestHandler<{ id: string }> = async (
+  request,
+  context
+) => {
   try {
+    const { userId } = getAuth(request);
     const body = await request.json();
 
     const pollId = context.params.id;
@@ -66,10 +78,11 @@ POST = async (request, context) => {
       throw new AppError("Poll not found", 400);
     }
 
+    const voteProps = { poll, body, userId };
     if (poll.voteType === "single") {
-      await handleSingleVote(poll, body);
+      await handleSingleVote(voteProps);
     } else {
-      await handleRankedVote(poll, body);
+      await handleRankedVote(voteProps);
     }
 
     return NextResponse.json({ message: "Vote casted" });
@@ -81,5 +94,3 @@ POST = async (request, context) => {
     );
   }
 };
-
-export { POST };

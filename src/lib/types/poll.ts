@@ -17,6 +17,13 @@ export type PollChoice = InferSelectModel<typeof dbPollChoices>;
 export const PollChoiceSchema = createSelectSchema(dbPollChoices);
 export const ApiPollChoiceSchema = PollChoiceSchema.extend(stringDates);
 export const PollChoiceInsertSchema = createInsertSchema(dbPollChoices);
+export const PollChoicesUpdateSchema = z.array(
+  PollChoiceInsertSchema.pick({
+    id: true,
+    title: true,
+    createdBy: true,
+  })
+);
 
 export type SingleVote = InferSelectModel<typeof dbSingleVotes>;
 export const SingleVoteSchema = createSelectSchema(dbSingleVotes);
@@ -44,6 +51,11 @@ export type PollwRVotes = Poll & {
 export const PollSchema = createSelectSchema(dbPolls);
 export const ApiPollSchema = PollSchema.extend(stringDates);
 export const PollInsertSchema = createInsertSchema(dbPolls);
+export const PollUpdateSchema = PollInsertSchema.pick({
+  title: true,
+  description: true,
+  updatedAt: true,
+});
 export const ApiPollwChoicesSchema = ApiPollSchema.extend({
   PollChoices: z.array(ApiPollChoiceSchema),
 });
