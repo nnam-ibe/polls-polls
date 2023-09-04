@@ -9,7 +9,7 @@ import {
 import type { PollWChoices } from "@/lib/types/poll";
 import { getAuth } from "@clerk/nextjs/server";
 import { randomUUID } from "crypto";
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 type HandleVoteProps = {
@@ -71,11 +71,15 @@ export const POST: RequestHandler<{ id: string }> = async (
       with: {
         PollChoices: true,
       },
-      where: eq(dbPolls.id, pollId),
+      where: and(isNull(dbPolls.deletedAt), eq(dbPolls.id, pollId)),
     });
 
     if (!poll) {
       throw new AppError("Poll not found", 400);
+    }
+
+    if (poll.isClosed) {
+      throw new AppError("Poll is closed", 400);
     }
 
     const voteProps = { poll, body, userId };

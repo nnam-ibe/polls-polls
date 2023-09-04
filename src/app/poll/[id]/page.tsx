@@ -25,6 +25,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 type State = {
   isLoading: boolean;
+  pollSubmitted: boolean;
 };
 
 type Action =
@@ -54,6 +55,7 @@ const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         isLoading: false,
+        pollSubmitted: true,
       };
     case "submitVoteError":
       return {
@@ -77,7 +79,10 @@ function PollComponent(props: { poll: PollWChoices }) {
     resolver: zodResolver(formSchema),
     defaultValues,
   });
-  const [state, dispatch] = useReducer(reducer, { isLoading: false });
+  const [state, dispatch] = useReducer(reducer, {
+    isLoading: false,
+    pollSubmitted: false,
+  });
   const { toast } = useToast();
   const { user } = useClerk();
 
@@ -147,8 +152,13 @@ function PollComponent(props: { poll: PollWChoices }) {
               className="w-full"
               variant="secondary"
               loading={state.isLoading}
+              disabled={poll.isClosed || state.pollSubmitted}
             >
-              Submit Vote!
+              {poll.isClosed
+                ? "Poll Closed!"
+                : state.pollSubmitted
+                ? "Vote Submitted!"
+                : "Submit Vote!"}
             </Button>
           </div>
         </form>
