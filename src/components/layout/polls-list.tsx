@@ -14,7 +14,7 @@ type PollsListProps = {
 async function fetchPolls(parameters: Record<string, string> = {}) {
   const params = new URLSearchParams(parameters);
   const res = await fetch(`${baseUrl}/api/polls?${params.toString()}`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 30 },
   });
   const json = (await res.json()) as Poll[];
   return json;

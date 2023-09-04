@@ -176,7 +176,7 @@ function PollComponent(props: { poll: PollWChoices }) {
 
 function fetchPoll(id: string) {
   return fetch(`${baseUrl}/api/poll/${id}`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 30 },
   });
 }
 

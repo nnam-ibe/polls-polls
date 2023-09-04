@@ -1,11 +1,11 @@
 import { Center } from "@/components/layout/center";
-import { SingleResult } from "@/components/layout/vote/single-result";
 import { RankedResult } from "@/components/layout/vote/ranked-result";
+import { SingleResult } from "@/components/layout/vote/single-result";
 import {
   ApiPollwChoicesSchema,
   IsSingleResult,
-  SingleResultSchema,
   RankedResultSchema,
+  SingleResultSchema,
 } from "@/lib/types";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
@@ -14,7 +14,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 function fetchPoll(id: string) {
   return fetch(`${baseUrl}/api/poll/${id}/result`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 30 },
   });
 }
 

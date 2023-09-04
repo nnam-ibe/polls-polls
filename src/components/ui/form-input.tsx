@@ -12,7 +12,7 @@ import { Control } from "react-hook-form";
 type FormInputProps = {
   control: Control<any, any>;
   name: string;
-  label: string;
+  label?: string;
   placeholder: string;
   helpText?: string;
   isRequired?: boolean;
