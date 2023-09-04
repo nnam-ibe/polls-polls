@@ -1,9 +1,11 @@
 import { Center } from "@/components/layout/center";
 import { SingleResult } from "@/components/layout/vote/single-result";
+import { RankedResult } from "@/components/layout/vote/ranked-result";
 import {
-  ApiPollwSVotesSchema,
+  ApiPollwChoicesSchema,
   IsSingleResult,
   SingleResultSchema,
+  RankedResultSchema,
 } from "@/lib/types";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
@@ -25,26 +27,30 @@ export default async function ResultPage({
   const rawResponse = await response.json();
 
   const isSingleResult = IsSingleResult.parse(rawResponse);
-  const poll = ApiPollwSVotesSchema.parse(rawResponse.poll);
-  // TODO: remove?
-  // const poll = isSingleResult ? SingleResultSchema.parse(rawResult) : RankedResultSchema.parse(rawResult);
+  const poll = ApiPollwChoicesSchema.parse(rawResponse.poll);
 
-  if (isSingleResult) {
-    const result = SingleResultSchema.parse(rawResponse.result);
-    return (
-      <Center>
-        <div className="text-xl font-bold mb-1">{poll.title}</div>
-        <div className="text-base italic mb-1">{poll.description}</div>
-        <SingleResult poll={poll} result={result} />
-        <Link
-          href={`/poll/${poll.id}`}
-          className="flex items-center text-blue-500 py-2"
-        >
-          <MoveLeft className="inline" />
-          <span className="ml-2">Back to Poll</span>
-        </Link>
-      </Center>
-    );
-  }
-  return <div>Ranked</div>;
+  return (
+    <Center>
+      <div className="text-xl font-bold mb-1">{poll.title}</div>
+      <div className="text-base italic mb-1">{poll.description}</div>
+      {isSingleResult ? (
+        <SingleResult
+          poll={poll}
+          result={SingleResultSchema.parse(rawResponse.result)}
+        />
+      ) : (
+        <RankedResult
+          poll={poll}
+          result={RankedResultSchema.parse(rawResponse.result)}
+        />
+      )}
+      <Link
+        href={`/poll/${poll.id}`}
+        className="flex items-center text-blue-500 py-2"
+      >
+        <MoveLeft className="inline" />
+        <span className="ml-2">Back to Poll</span>
+      </Link>
+    </Center>
+  );
 }

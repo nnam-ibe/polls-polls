@@ -80,8 +80,8 @@ export const RankedResultSchema = z.object({
     .object({
       highestChoiceId: z.string(),
       lowestChoiceId: z.string(),
-      highestChoice: z.number(),
-      lowestChoice: z.number(),
+      highestChoiceCount: z.number(),
+      lowestChoiceCount: z.number(),
       eliminatedChoiceIds: z.array(z.string()),
       tallyCount: z.record(z.number()),
     })
