@@ -98,6 +98,17 @@ export const SingleResultSchema = z.object({
 });
 export type SingleResult = z.infer<typeof SingleResultSchema>;
 
+export const PollEditSchema = z.object({
+  title: PollSchema.shape.title,
+  description: PollSchema.shape.description,
+  choices: z
+    .object({
+      id: PollChoiceSchema.shape.id.optional(),
+      title: PollChoiceSchema.shape.title,
+    })
+    .array(),
+});
+
 export const IsSingleResult = z
   .object({
     result: z.object({

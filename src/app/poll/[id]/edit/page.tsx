@@ -6,7 +6,11 @@ import { Form } from "@/components/ui/form";
 import { FormInput } from "@/components/ui/form-input";
 import { useToast } from "@/components/ui/use-toast";
 import type { PollWChoices } from "@/lib/types";
-import { ApiErrorSchema, ApiPollwChoicesSchema } from "@/lib/types";
+import {
+  ApiErrorSchema,
+  ApiPollwChoicesSchema,
+  PollEditSchema,
+} from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoveLeft, Trash2 } from "lucide-react";
 import Link from "next/link";
@@ -18,11 +22,6 @@ import * as z from "zod";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 const choiceMaxLength = 32;
-const formSchema = z.object({
-  title: z.string().min(1).max(32),
-  description: z.string().max(64),
-  currentChoice: z.string().max(choiceMaxLength),
-});
 
 type EditPollState = {
   existingChoices: PollWChoices["PollChoices"];
@@ -36,6 +35,11 @@ type EditPollAction =
   | {
       type: "submitPoll" | "submitPollSuccess" | "submitPollError";
     };
+
+type ChoicesUpdate = {
+  id?: string;
+  title: string;
+}[];
 
 const editPollReducer = (
   state: EditPollState,
@@ -91,6 +95,20 @@ function EditPoll(props: { poll: PollWChoices }) {
     },
     {}
   );
+  const existingChoiceIds = Object.keys(existingDefaults);
+  const existingSchema = existingChoiceIds.reduce<Record<string, z.ZodString>>(
+    (acc, choiceId) => {
+      acc[choiceId] = z.string().max(choiceMaxLength);
+      return acc;
+    },
+    {}
+  );
+  const formSchema = z.object({
+    title: z.string().min(1).max(32),
+    description: z.string().max(64),
+    currentChoice: z.string().max(choiceMaxLength),
+    ...existingSchema,
+  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -105,7 +123,7 @@ function EditPoll(props: { poll: PollWChoices }) {
 
   const { pollChoices, isLoading } = state;
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: Record<string, string>) {
     const numChoices = state.existingChoices.length + pollChoices.size;
     if (numChoices < 2) {
       form.setError("currentChoice", {
@@ -115,19 +133,33 @@ function EditPoll(props: { poll: PollWChoices }) {
       return;
     }
 
+    const existingChoicesUpdate = existingChoiceIds.reduce<ChoicesUpdate>(
+      (acc, choiceId) => {
+        if (values[choiceId]) {
+          acc.push({
+            id: choiceId,
+            title: values[choiceId],
+          });
+        }
+        return acc;
+      },
+      []
+    );
     const choices = [
-      ...state.existingChoices.map((c) => ({ id: c.id, title: c.title })),
+      ...existingChoicesUpdate,
       ...Array.from(pollChoices).map((cTitle) => ({
         title: cTitle,
       })),
     ];
 
+    const editData = PollEditSchema.parse({
+      ...values,
+      choices,
+    });
+
     try {
       dispatch({ type: "submitPoll" });
-      await editPoll(poll.id, {
-        ...values,
-        choices,
-      });
+      await editPoll(poll.id, editData);
 
       dispatch({ type: "submitPollSuccess" });
       toast({ title: "Poll Updated!" });
