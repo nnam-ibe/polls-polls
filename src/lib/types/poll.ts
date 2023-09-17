@@ -107,6 +107,7 @@ export const PollEditSchema = z.object({
       title: PollChoiceSchema.shape.title,
     })
     .array(),
+  deletedChoices: z.string().array(),
 });
 
 export const IsSingleResult = z

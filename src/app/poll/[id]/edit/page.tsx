@@ -26,12 +26,17 @@ const choiceMaxLength = 32;
 type EditPollState = {
   existingChoices: PollWChoices["PollChoices"];
   pollChoices: Set<string>;
+  deletedChoices: string[];
   isLoading: boolean;
 };
 
 type EditPollAction =
   | { type: "addChoice" | "removeChoice"; payload: Set<string> }
-  | { type: "updateExistingChoices"; payload: PollWChoices["PollChoices"] }
+  | {
+      type: "deleteExistingChoice";
+      newChoices: PollWChoices["PollChoices"];
+      deletedChoices: string[];
+    }
   | {
       type: "submitPoll" | "submitPollSuccess" | "submitPollError";
     };
@@ -51,10 +56,11 @@ const editPollReducer = (
         ...state,
         pollChoices: action.payload,
       };
-    case "updateExistingChoices":
+    case "deleteExistingChoice":
       return {
         ...state,
-        existingChoices: action.payload,
+        deletedChoices: action.deletedChoices,
+        existingChoices: action.newChoices,
       };
     case "removeChoice":
       return {
@@ -86,6 +92,7 @@ function EditPoll(props: { poll: PollWChoices }) {
   const [state, dispatch] = useReducer(editPollReducer, {
     existingChoices: poll.PollChoices,
     pollChoices: new Set<string>(),
+    deletedChoices: [],
     isLoading: false,
   });
   const existingDefaults = poll.PollChoices.reduce<Record<string, string>>(
@@ -201,10 +208,12 @@ function EditPoll(props: { poll: PollWChoices }) {
   }
 
   function deleteExistingChoice(choiceId: string) {
+    const deletedChoices = [...state.deletedChoices];
+    deletedChoices.push(choiceId);
     const newChoices = state.existingChoices.filter(
       (choice) => choice.id !== choiceId
     );
-    dispatch({ type: "updateExistingChoices", payload: newChoices });
+    dispatch({ type: "deleteExistingChoice", newChoices, deletedChoices });
   }
 
   return (

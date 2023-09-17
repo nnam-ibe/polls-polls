@@ -2,9 +2,9 @@ import { db } from "@/db/index";
 import { dbPollChoices, dbPolls } from "@/db/schema";
 import { AppError, getError } from "@/lib/error-handler";
 import { RequestHandler } from "@/lib/types";
-import { PollChoicesUpdateSchema, PollUpdateSchema } from "@/lib/types/poll";
+import { PollChoicesUpdateSchema, PollEditSchema } from "@/lib/types/poll";
 import { getAuth } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 type PollChoiceUpdate = {
@@ -40,40 +40,64 @@ export const POST: RequestHandler<{ id: string }> = async (
     }
 
     const body = await request.json();
-    const pollData = PollUpdateSchema.parse(body);
-    pollData.updatedAt = new Date();
-    await db.update(dbPolls).set(pollData).where(eq(dbPolls.id, pollId));
+    const editData = PollEditSchema.parse(body);
 
-    const choicesData = PollChoicesUpdateSchema.parse(body.choices);
+    await db.transaction(async (tx) => {
+      await tx
+        .update(dbPolls)
+        .set({
+          ...editData,
+          updatedAt: new Date(),
+        })
+        .where(eq(dbPolls.id, pollId));
 
-    const newChoices: string[] = [];
-    const existingChoices: PollChoiceUpdate[] = [];
-    choicesData.forEach((choice) => {
-      if (choice.id) {
-        existingChoices.push(choice as PollChoiceUpdate);
-      } else {
-        newChoices.push(choice.title);
+      const choicesData = PollChoicesUpdateSchema.parse(body.choices);
+
+      const newChoices: string[] = [];
+      const existingChoices: PollChoiceUpdate[] = [];
+      choicesData.forEach((choice) => {
+        if (choice.id) {
+          existingChoices.push(choice as PollChoiceUpdate);
+        } else {
+          newChoices.push(choice.title);
+        }
+      });
+
+      const updatePromises = existingChoices.map(async (choice) => {
+        choice.updatedAt = new Date();
+        return tx
+          .update(dbPollChoices)
+          .set(choice)
+          .where(eq(dbPollChoices.id, choice.id));
+      });
+
+      if (newChoices.length > 0) {
+        const insertPollChoicesData = newChoices.map((choice) => ({
+          title: choice,
+          pollId,
+          createdBy: userId,
+          updatedAt: new Date(),
+        }));
+        updatePromises.push(
+          tx.insert(dbPollChoices).values(insertPollChoicesData)
+        );
       }
-    });
 
-    const updates = existingChoices.map(async (choice) => {
-      choice.updatedAt = new Date();
-      return db
-        .update(dbPollChoices)
-        .set(choice)
-        .where(eq(dbPollChoices.id, choice.id));
-    });
+      if (editData.deletedChoices.length > 0) {
+        updatePromises.push(
+          tx
+            .delete(dbPollChoices)
+            .where(
+              and(
+                eq(dbPollChoices.pollId, pollId),
+                inArray(dbPollChoices.id, editData.deletedChoices)
+              )
+            )
+        );
+      }
 
-    if (newChoices.length > 0) {
-      const insertPollChoicesData = newChoices.map((choice) => ({
-        title: choice,
-        pollId,
-        createdBy: userId,
-        updatedAt: new Date(),
-      }));
-      updates.push(db.insert(dbPollChoices).values(insertPollChoicesData));
-    }
-    await Promise.all(updates);
+      await Promise.all(updatePromises);
+    });
 
     return NextResponse.json({ message: "All done all done" });
   } catch (err) {

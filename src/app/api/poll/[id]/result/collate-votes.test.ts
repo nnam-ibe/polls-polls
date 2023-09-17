@@ -1,6 +1,7 @@
 import rVoteFixture from "@/lib/fixtures/ranked-votes.json";
 import { faker } from "@/lib/test-helper";
 import type { PollwRVotes } from "@/lib/types";
+import { describe, expect, test } from "vitest";
 import {
   calculateRankedResult,
   calculateSingleResult,
@@ -40,7 +41,7 @@ function parsePollRankedFixture(
 
 describe("poll/[id]/result/collate-votes", () => {
   describe("singleResult", () => {
-    it("should calculate poll winner and tally", () => {
+    test("should calculate poll winner and tally", () => {
       const poll = faker.poll({ voteType: "single" });
       const pollChoices = [
         faker.pollChoice({ pollId: poll.id, title: "Yes" }),
@@ -83,7 +84,7 @@ describe("poll/[id]/result/collate-votes", () => {
       });
     });
 
-    it("winner should be null when 50+1 is not met", () => {
+    test("winner should be null when 50+1 is not met", () => {
       const poll = faker.poll({ voteType: "single" });
       const pollChoices = [
         faker.pollChoice({ pollId: poll.id, title: "Yes" }),
@@ -132,7 +133,7 @@ describe("poll/[id]/result/collate-votes", () => {
   });
 
   describe("rankedResult", () => {
-    it("should group votes by id", () => {
+    test("should group votes by id", () => {
       const rankedVotes = parseRankedFixtures(rVoteFixture.groupById);
       const { voteIds, votesById } = groupVotesByVoteId(rankedVotes);
 
@@ -144,7 +145,7 @@ describe("poll/[id]/result/collate-votes", () => {
       });
     });
 
-    it("should correctly compileStage", () => {
+    test("should correctly compileStage", () => {
       const poll = parsePollRankedFixture(rVoteFixture.eliminatedVote);
       const pollChoices = poll.PollChoices;
 
@@ -176,7 +177,7 @@ describe("poll/[id]/result/collate-votes", () => {
       });
     });
 
-    it("should return winner and tally", () => {
+    test("should return winner and tally", () => {
       const poll = parsePollRankedFixture(rVoteFixture.singleVoteTally);
 
       const pollChoices = poll.PollChoices;
@@ -202,7 +203,7 @@ describe("poll/[id]/result/collate-votes", () => {
       });
     });
 
-    it("should correctly collate multi-stage results", () => {
+    test("should correctly collate multi-stage results", () => {
       const poll = parsePollRankedFixture(rVoteFixture.multiStageResult);
       const { stages, winner, numberOfVotes, threshold, voteType } =
         calculateRankedResult(poll);
@@ -254,7 +255,7 @@ describe("poll/[id]/result/collate-votes", () => {
       });
     });
 
-    it("should terminates there can be no winner", () => {
+    test("should terminates there can be no winner", () => {
       const poll = parsePollRankedFixture(rVoteFixture.noWinner);
       const { stages, winner, numberOfVotes, threshold, voteType } =
         calculateRankedResult(poll);
