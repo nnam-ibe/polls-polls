@@ -140,18 +140,10 @@ function EditPoll(props: { poll: PollWChoices }) {
       return;
     }
 
-    const existingChoicesUpdate = existingChoiceIds.reduce<ChoicesUpdate>(
-      (acc, choiceId) => {
-        if (values[choiceId]) {
-          acc.push({
-            id: choiceId,
-            title: values[choiceId],
-          });
-        }
-        return acc;
-      },
-      []
-    );
+    const existingChoicesUpdate = state.existingChoices.map((choice) => ({
+      id: choice.id,
+      title: choice.title,
+    }));
     const choices = [
       ...existingChoicesUpdate,
       ...Array.from(pollChoices).map((cTitle) => ({
@@ -162,6 +154,7 @@ function EditPoll(props: { poll: PollWChoices }) {
     const editData = PollEditSchema.parse({
       ...values,
       choices,
+      deletedChoices: state.deletedChoices,
     });
 
     try {

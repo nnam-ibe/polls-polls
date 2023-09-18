@@ -6,13 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint && tsc --noEmit",
     "db:migration:generate": "drizzle-kit generate:pg --config=drizzle.config.ts",
     "db:push": "drizzle-kit push:pg --config=drizzle.config.ts",
     "test": "NODE_ENV=test vitest",
     "test:db:up": "docker-compose -f docker-compose.test.yml up -d",
-    "test:db:down": "docker-compose -f docker-compose.test.yml down",
-    "type-check": "tsc --noEmit"
+    "test:db:down": "docker-compose -f docker-compose.test.yml down"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.18.2",

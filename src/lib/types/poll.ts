@@ -56,6 +56,17 @@ export const PollUpdateSchema = PollInsertSchema.pick({
   description: true,
   updatedAt: true,
 });
+export const PollEditSchema = z.object({
+  title: PollSchema.shape.title,
+  description: PollSchema.shape.description,
+  choices: z
+    .object({
+      id: PollChoiceSchema.shape.id.optional(),
+      title: PollChoiceSchema.shape.title,
+    })
+    .array(),
+  deletedChoices: z.string().array(),
+});
 export const ApiPollwChoicesSchema = ApiPollSchema.extend({
   PollChoices: z.array(ApiPollChoiceSchema),
 });
@@ -97,18 +108,6 @@ export const SingleResultSchema = z.object({
   voteType: PollSchema.shape.voteType,
 });
 export type SingleResult = z.infer<typeof SingleResultSchema>;
-
-export const PollEditSchema = z.object({
-  title: PollSchema.shape.title,
-  description: PollSchema.shape.description,
-  choices: z
-    .object({
-      id: PollChoiceSchema.shape.id.optional(),
-      title: PollChoiceSchema.shape.title,
-    })
-    .array(),
-  deletedChoices: z.string().array(),
-});
 
 export const IsSingleResult = z
   .object({

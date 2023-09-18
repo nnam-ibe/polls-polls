@@ -2,7 +2,11 @@ import { db } from "@/db/index";
 import { dbPollChoices, dbPolls } from "@/db/schema";
 import { AppError, getError } from "@/lib/error-handler";
 import { RequestHandler } from "@/lib/types";
-import { PollChoicesUpdateSchema, PollEditSchema } from "@/lib/types/poll";
+import {
+  PollChoicesUpdateSchema,
+  PollEditSchema,
+  PollUpdateSchema,
+} from "@/lib/types/poll";
 import { getAuth } from "@clerk/nextjs/server";
 import { and, eq, inArray } from "drizzle-orm";
 import { NextResponse } from "next/server";
@@ -41,12 +45,13 @@ export const POST: RequestHandler<{ id: string }> = async (
 
     const body = await request.json();
     const editData = PollEditSchema.parse(body);
+    const pollUpdateData = PollUpdateSchema.parse(editData);
 
     await db.transaction(async (tx) => {
       await tx
         .update(dbPolls)
         .set({
-          ...editData,
+          ...pollUpdateData,
           updatedAt: new Date(),
         })
         .where(eq(dbPolls.id, pollId));
