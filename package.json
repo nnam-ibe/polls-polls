@@ -36,7 +36,7 @@
     "drizzle-zod": "^0.5.1",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
-    "lodash.keyby": "^4.6.0",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.226.0",
     "next": "13.5.2",
     "postcss": "8.4.23",

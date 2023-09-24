@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { PollWChoices, RankedResult } from "@/lib/types";
-import keyBy from "lodash/keyBy";
+import { keyBy } from "lodash";
 
 type RankedResultProps = {
   poll: PollWChoices;
