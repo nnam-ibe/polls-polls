@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
 
 type PollsListProps = {
   title: string;

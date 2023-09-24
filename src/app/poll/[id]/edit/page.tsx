@@ -19,7 +19,7 @@ import { useReducer } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
 
 const choiceMaxLength = 32;
 
