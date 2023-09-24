@@ -15,7 +15,7 @@ import type { PollWChoices } from "@/lib/types";
 import { ApiErrorSchema } from "@/lib/types";
 import { useClerk } from "@clerk/clerk-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MoveRight } from "lucide-react";
+import { MoveRight, Settings } from "lucide-react";
 import Link from "next/link";
 import { useReducer } from "react";
 import { useForm } from "react-hook-form";
@@ -138,39 +138,49 @@ function PollComponent(props: { poll: PollWChoices }) {
   }
 
   const VoteComponent = poll.voteType === "single" ? SingleVote : RankedVote;
+  const isOwner = user?.id === poll.createdBy;
 
   return (
-    <Center>
-      <div className="text-xl font-bold mb-1">{poll.title}</div>
-      <div className="text-base italic mb-1">{poll.description}</div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <VoteComponent poll={poll} />
-          <div className="mt-7">
-            <Button
-              type="submit"
-              className="w-full"
-              variant="secondary"
-              loading={state.isLoading}
-              disabled={poll.isClosed || state.pollSubmitted}
-            >
-              {poll.isClosed
-                ? "Poll Closed!"
-                : state.pollSubmitted
-                ? "Vote Submitted!"
-                : "Submit Vote!"}
-            </Button>
-          </div>
-        </form>
-      </Form>
-      <Link
-        href={`/poll/${poll.id}/result`}
-        className="flex items-center text-blue-500 mt-4 justify-end"
-      >
-        <span className="mr-2">View Results</span>
-        <MoveRight className="inline" />
-      </Link>
-    </Center>
+    <div>
+      {isOwner && (
+        <div className="flex flex-row-reverse pt-4 pr-4">
+          <Link href={`/poll/${poll.id}/edit`}>
+            <Settings color="hsl(var(--primary))" />
+          </Link>
+        </div>
+      )}
+      <Center>
+        <div className="text-xl font-bold mb-1">{poll.title}</div>
+        <div className="text-base italic mb-1">{poll.description}</div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <VoteComponent poll={poll} />
+            <div className="mt-7">
+              <Button
+                type="submit"
+                className="w-full"
+                variant="secondary"
+                loading={state.isLoading}
+                disabled={poll.isClosed || state.pollSubmitted}
+              >
+                {poll.isClosed
+                  ? "Poll Closed!"
+                  : state.pollSubmitted
+                  ? "Vote Submitted!"
+                  : "Submit Vote!"}
+              </Button>
+            </div>
+          </form>
+        </Form>
+        <Link
+          href={`/poll/${poll.id}/result`}
+          className="flex items-center text-blue-500 mt-4 justify-end"
+        >
+          <span className="mr-2">View Results</span>
+          <MoveRight className="inline" />
+        </Link>
+      </Center>
+    </div>
   );
 }
 
