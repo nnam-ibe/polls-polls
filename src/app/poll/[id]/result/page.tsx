@@ -1,19 +1,12 @@
 import { Center } from "@/components/layout/center";
 import { RankedResult } from "@/components/layout/vote/ranked-result";
 import { SingleResult } from "@/components/layout/vote/single-result";
-import {
-  ApiPollwChoicesSchema,
-  IsSingleResult,
-  RankedResultSchema,
-  SingleResultSchema,
-} from "@/lib/types";
+import { getPollResult } from "@/services/polls/result";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 
 function fetchPoll(id: string) {
-  return fetch(`/api/poll/${id}/result`, {
-    next: { revalidate: 30 },
-  });
+  return getPollResult(id);
 }
 
 export default async function ResultPage({
@@ -21,26 +14,16 @@ export default async function ResultPage({
 }: {
   params: { id: string };
 }) {
-  const response = await fetchPoll(params.id);
-  const rawResponse = await response.json();
-
-  const isSingleResult = IsSingleResult.parse(rawResponse);
-  const poll = ApiPollwChoicesSchema.parse(rawResponse.poll);
+  const { poll, result } = await fetchPoll(params.id);
 
   return (
     <Center>
       <div className="text-xl font-bold mb-1">{poll.title}</div>
       <div className="text-base italic mb-1">{poll.description}</div>
-      {isSingleResult ? (
-        <SingleResult
-          poll={poll}
-          result={SingleResultSchema.parse(rawResponse.result)}
-        />
+      {result.voteType === "single" ? (
+        <SingleResult poll={poll} result={result} />
       ) : (
-        <RankedResult
-          poll={poll}
-          result={RankedResultSchema.parse(rawResponse.result)}
-        />
+        <RankedResult poll={poll} result={result} />
       )}
       <Link
         href={`/poll/${poll.id}`}
