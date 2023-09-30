@@ -1,34 +1,12 @@
-import { db } from "@/db/index";
-import { dbPolls } from "@/db/schema";
-import { AppError, getError } from "@/lib/error-handler";
+import { getError } from "@/lib/error-handler";
 import { RequestHandler } from "@/lib/types";
-import { eq } from "drizzle-orm";
+import { getPollResult } from "@/services/polls/result";
 import { NextResponse } from "next/server";
-import { calculateRankedResult, calculateSingleResult } from "./collate-votes";
 
-let GET: RequestHandler<{ id: string }>;
-GET = async (request, context) => {
+export const GET: RequestHandler<{ id: string }> = async (request, context) => {
   try {
-    const pollId = context.params.id;
-    const poll = await db.query.dbPolls.findFirst({
-      with: {
-        PollChoices: true,
-        SingleVotes: true,
-        RankedVotes: true,
-      },
-      where: eq(dbPolls.id, pollId),
-    });
-
-    if (!poll) {
-      throw new AppError("Poll not found", 400);
-    }
-
-    const result =
-      poll.voteType === "ranked"
-        ? calculateRankedResult(poll)
-        : calculateSingleResult(poll);
-
-    return NextResponse.json({ result, poll });
+    const data = getPollResult(context.params.id);
+    return NextResponse.json(data);
   } catch (err) {
     const error = getError(err);
     return NextResponse.json(
@@ -37,5 +15,3 @@ GET = async (request, context) => {
     );
   }
 };
-
-export { GET };

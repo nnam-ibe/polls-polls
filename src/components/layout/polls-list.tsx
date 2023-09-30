@@ -1,7 +1,5 @@
-import { db } from "@/db/index";
-import { dbPolls } from "@/db/schema";
 import type { PollQuery } from "@/lib/types";
-import { and, eq, isNull } from "drizzle-orm";
+import { fetchPolls } from "@/services/polls/list";
 import { ArrowDownWideNarrow, Crosshair } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -11,17 +9,6 @@ type PollsListProps = {
   title: string;
   params: PollQuery;
 };
-
-async function fetchPolls(parameters: PollQuery) {
-  let whereClause = and(eq(dbPolls.isActive, true), isNull(dbPolls.deletedAt));
-  if ("isClosed" in parameters && parameters.isClosed !== undefined) {
-    whereClause = and(whereClause, eq(dbPolls.isClosed, parameters.isClosed));
-  }
-  const polls = await db.query.dbPolls.findMany({
-    where: whereClause,
-  });
-  return polls;
-}
 
 function ListSkeleton(props: PollsListProps) {
   const { title } = props;

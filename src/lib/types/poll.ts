@@ -108,11 +108,3 @@ export const SingleResultSchema = z.object({
   voteType: PollSchema.shape.voteType,
 });
 export type SingleResult = z.infer<typeof SingleResultSchema>;
-
-export const IsSingleResult = z
-  .object({
-    result: z.object({
-      voteType: PollSchema.shape.voteType,
-    }),
-  })
-  .transform((val) => val.result.voteType === "single");
