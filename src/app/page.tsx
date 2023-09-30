@@ -11,8 +11,8 @@ export default function Home() {
         </Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2">
-        <PollsList title="Open Polls" params={{ isClosed: "false" }} />
-        <PollsList title="Closed Polls" params={{ isClosed: "true" }} />
+        <PollsList title="Open Polls" params={{ isClosed: false }} />
+        <PollsList title="Closed Polls" params={{ isClosed: true }} />
       </div>
     </div>
   );

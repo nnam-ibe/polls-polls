@@ -1,23 +1,26 @@
-import type { Poll } from "@/lib/types/poll";
+import { db } from "@/db/index";
+import { dbPolls } from "@/db/schema";
+import type { PollQuery } from "@/lib/types";
+import { and, eq, isNull } from "drizzle-orm";
 import { ArrowDownWideNarrow, Crosshair } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
-
 type PollsListProps = {
   title: string;
-  params: Record<string, string>;
+  params: PollQuery;
 };
 
-async function fetchPolls(parameters: Record<string, string> = {}) {
-  const params = new URLSearchParams(parameters);
-  const res = await fetch(`${baseUrl}/api/polls?${params.toString()}`, {
-    next: { revalidate: 30 },
+async function fetchPolls(parameters: PollQuery) {
+  let whereClause = and(eq(dbPolls.isActive, true), isNull(dbPolls.deletedAt));
+  if ("isClosed" in parameters && parameters.isClosed !== undefined) {
+    whereClause = and(whereClause, eq(dbPolls.isClosed, parameters.isClosed));
+  }
+  const polls = await db.query.dbPolls.findMany({
+    where: whereClause,
   });
-  const json = (await res.json()) as Poll[];
-  return json;
+  return polls;
 }
 
 function ListSkeleton(props: PollsListProps) {
