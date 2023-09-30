@@ -21,8 +21,6 @@ import { useReducer } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
-
 type State = {
   isLoading: boolean;
   pollSubmitted: boolean;
@@ -100,7 +98,7 @@ function PollComponent(props: { poll: PollWChoices }) {
         }
         data.ranking = ranking;
       }
-      const response = await fetch(`${baseUrl}/api/poll/${poll.id}/vote`, {
+      const response = await fetch(`/api/poll/${poll.id}/vote`, {
         method: "POST",
         body: JSON.stringify(data),
       });
@@ -185,7 +183,7 @@ function PollComponent(props: { poll: PollWChoices }) {
 }
 
 function fetchPoll(id: string) {
-  return fetch(`${baseUrl}/api/poll/${id}`, {
+  return fetch(`/api/poll/${id}`, {
     next: { revalidate: 30 },
   });
 }

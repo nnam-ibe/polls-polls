@@ -19,8 +19,6 @@ import { useReducer } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
-
 const choiceMaxLength = 32;
 
 type EditPollState = {
@@ -318,7 +316,7 @@ async function editPoll(pollId: string, data: any) {
 }
 
 function fetchPoll(id: string) {
-  return fetch(`${baseUrl}/api/poll/${id}`, {
+  return fetch(`/api/poll/${id}`, {
     next: { revalidate: 30 },
   });
 }

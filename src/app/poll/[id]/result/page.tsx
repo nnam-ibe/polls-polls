@@ -10,10 +10,8 @@ import {
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
-
 function fetchPoll(id: string) {
-  return fetch(`${baseUrl}/api/poll/${id}/result`, {
+  return fetch(`/api/poll/${id}/result`, {
     next: { revalidate: 30 },
   });
 }
