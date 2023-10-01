@@ -16,7 +16,6 @@ import { ApiErrorSchema } from "@/lib/types";
 import { useClerk } from "@clerk/clerk-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoveRight, Settings } from "lucide-react";
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { useReducer } from "react";
 import { useForm } from "react-hook-form";
@@ -107,7 +106,6 @@ export function PollComponent(props: { poll: PollWChoices }) {
         throw new Error(resData.message);
       }
 
-      revalidatePath(`/poll/${poll.id}/result`);
       dispatch({ type: "submitVoteSuccess" });
       toast({ title: "Vote submitted successfully" });
     } catch (error) {

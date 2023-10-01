@@ -10,6 +10,7 @@ import type { PollWChoices } from "@/lib/types/poll";
 import { getAuth } from "@clerk/nextjs/server";
 import { randomUUID } from "crypto";
 import { and, eq, isNull } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 type HandleVoteProps = {
@@ -63,6 +64,9 @@ export const POST: RequestHandler<{ id: string }> = async (
   context
 ) => {
   try {
+    const path = `/poll/${context.params.id}/result`;
+    revalidatePath(path);
+
     const { userId } = getAuth(request);
     const body = await request.json();
 
