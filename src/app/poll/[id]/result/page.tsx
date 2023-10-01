@@ -1,7 +1,7 @@
 import { Center } from "@/components/layout/center";
 import { RankedResult } from "@/components/layout/vote/ranked-result";
 import { SingleResult } from "@/components/layout/vote/single-result";
-import { getPollResult } from "@/services/polls/result";
+import { getPollResult } from "@/services/polls";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 

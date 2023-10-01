@@ -1,6 +1,6 @@
 import { getError } from "@/lib/error-handler";
 import { RequestHandler } from "@/lib/types";
-import { getPollResult } from "@/services/polls/result";
+import { getPollResult } from "@/services/polls";
 import { NextResponse } from "next/server";
 
 export const GET: RequestHandler<{ id: string }> = async (request, context) => {

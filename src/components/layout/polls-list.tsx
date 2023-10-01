@@ -1,5 +1,5 @@
 import type { PollQuery } from "@/lib/types";
-import { fetchPolls } from "@/services/polls/list";
+import { getPolls } from "@/services/polls";
 import { ArrowDownWideNarrow, Crosshair } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -26,7 +26,7 @@ function ListSkeleton(props: PollsListProps) {
 }
 
 async function List(props: PollsListProps) {
-  const polls = await fetchPolls(props.params);
+  const polls = await getPolls(props.params);
   const { title } = props;
   return (
     <div className="poll-list">
