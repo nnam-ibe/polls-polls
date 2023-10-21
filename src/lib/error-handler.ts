@@ -19,6 +19,17 @@ export function getError(error: unknown): AppError {
   if (error instanceof SyntaxError && error.message.includes("JSON")) {
     return new AppError("Malformed JSON", 400);
   }
+  if (
+    error &&
+    typeof error === "object" &&
+    "name" in error &&
+    error.name === "PostgresError" &&
+    "message" in error &&
+    typeof error.message === "string" &&
+    error.message.includes("invalid input syntax for type uuid")
+  ) {
+    return new AppError("Invalid id", 400);
+  }
 
   return new AppError("Internal Server Error", 500);
 }
