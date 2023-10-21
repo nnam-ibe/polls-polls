@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 export const GET: RequestHandler<{ id: string }> = async (request, context) => {
   try {
-    const poll = getPoll(context.params.id);
+    const poll = await getPoll(context.params.id);
     return NextResponse.json(poll);
   } catch (err) {
     const error = getError(err);
