@@ -28,6 +28,7 @@ type FormSelectProps = {
   helpText?: string;
   isRequired?: boolean;
   options: Option[];
+  selectedValues?: string[];
 };
 
 export function FormSelect(props: FormSelectProps) {
@@ -39,8 +40,10 @@ export function FormSelect(props: FormSelectProps) {
     control,
     isRequired = false,
     options,
+    selectedValues = [],
   } = props;
   const labelClass = isRequired ? "required-field" : "";
+
   return (
     <FormField
       control={control}
@@ -55,8 +58,16 @@ export function FormSelect(props: FormSelectProps) {
               </SelectTrigger>
             </FormControl>
             <SelectContent>
+              <SelectItem value={""}>--</SelectItem>
               {options.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
+                <SelectItem
+                  key={option.value}
+                  value={option.value}
+                  disabled={
+                    field.value !== option.value &&
+                    selectedValues.includes(option.value)
+                  }
+                >
                   {option.label}
                 </SelectItem>
               ))}

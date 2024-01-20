@@ -134,7 +134,6 @@ export function PollComponent(props: { poll: PollWChoices }) {
     await submitVote({ ...values, pollId: poll.id, voterId: user?.id });
   }
 
-  const VoteComponent = poll.voteType === "single" ? SingleVote : RankedVote;
   const isOwner = user?.id === poll.createdBy;
 
   return (
@@ -151,7 +150,11 @@ export function PollComponent(props: { poll: PollWChoices }) {
         <div className="text-base italic mb-1">{poll.description}</div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <VoteComponent poll={poll} />
+            {poll.voteType === "single" ? (
+              <SingleVote poll={poll} />
+            ) : (
+              <RankedVote poll={poll} />
+            )}
             <div className="mt-7">
               <Button
                 type="submit"

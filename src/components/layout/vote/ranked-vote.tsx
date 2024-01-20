@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { FormSelect } from "@/components/ui/form-select";
 import type { PollWChoices } from "@/lib/types";
 import { toOrdinalNumber } from "@/lib/utils";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import * as z from "zod";
 
 type RankedVoteProps = {
@@ -64,6 +64,7 @@ export function formConfig(poll: PollWChoices) {
 export function RankedVote(props: RankedVoteProps) {
   const { poll } = props;
   const form = useFormContext();
+  const selectedValues = form.watch();
 
   const options = poll.PollChoices.map((choice) => ({
     value: choice.id,
@@ -87,6 +88,7 @@ export function RankedVote(props: RankedVoteProps) {
             control={form.control}
             placeholder="Select an option"
             isRequired={index === 0}
+            selectedValues={Object.values(selectedValues)}
           />
         );
       })}
