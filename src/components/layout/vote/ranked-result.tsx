@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/table";
 import type { PollWChoices, RankedResult } from "@/lib/types";
 import { keyBy } from "lodash";
+import { twMerge } from "tailwind-merge";
+import { cellTextStyles } from "./styles";
 
 type RankedResultProps = {
   poll: PollWChoices;
@@ -48,12 +50,21 @@ export function RankedResult(props: RankedResultProps) {
                 <TableRow key={choiceId}>
                   <TableCell
                     className={
-                      result.winner === choiceId ? "font-bold" : "font-medium"
+                      result.winner === choiceId
+                        ? cellTextStyles.winner
+                        : cellTextStyles.losers
                     }
                   >
                     {pollChoicesById[choiceId].title}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell
+                    className={twMerge(
+                      "text-right",
+                      result.winner === choiceId
+                        ? cellTextStyles.winner
+                        : cellTextStyles.losers
+                    )}
+                  >
                     {stage.tallyCount[choiceId]}
                   </TableCell>
                 </TableRow>

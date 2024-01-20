@@ -8,6 +8,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { PollWChoices, SingleResult } from "@/lib/types";
+import { twMerge } from "tailwind-merge";
+import { cellTextStyles } from "./styles";
 
 type SingleResultProps = {
   poll: PollWChoices;
@@ -38,11 +40,24 @@ export function SingleResult(props: SingleResultProps) {
         {choices.map((choice) => (
           <TableRow key={choice}>
             <TableCell
-              className={result.winner === choice ? "font-bold" : "font-medium"}
+              className={
+                result.winner === choice
+                  ? cellTextStyles.winner
+                  : cellTextStyles.losers
+              }
             >
               {choiceTitles[choice]}
             </TableCell>
-            <TableCell className="text-right">{result.tally[choice]}</TableCell>
+            <TableCell
+              className={twMerge(
+                "text-right",
+                result.winner === choice
+                  ? cellTextStyles.winner
+                  : cellTextStyles.losers
+              )}
+            >
+              {result.tally[choice]}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
